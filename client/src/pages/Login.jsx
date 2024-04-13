@@ -1,6 +1,7 @@
 import { Formik, Field, Form } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/apiAction";
+import Input from "../ui/input";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const Login = () => {
 
             <Form>
               <div className="space-y-5">
+                <Input />
                 <div>
                   <label className="text-base font-medium text-gray-900">
                     Email

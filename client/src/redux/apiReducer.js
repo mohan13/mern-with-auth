@@ -1,10 +1,10 @@
-// reducers.js
-
 const initialState = {
   isLoading: false,
   error: null,
   token: null,
-  userInfo: localStorage.getItem("user"),
+  userInfo: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null,
 };
 
 const apiReducer = (state = initialState, action) => {

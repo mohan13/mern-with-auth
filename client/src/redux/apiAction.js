@@ -14,15 +14,16 @@ export const login = (formData) => {
         })
         .then((res) => {
           const user = res.data;
+          const token = user.token;
 
-          saveToken(user);
+          saveToken(token);
 
-          console.log("userIfo", user);
-          dispatch({ type: "USER_INFO", payload: user.user.username });
-          dispatch({ type: "SET_TOKEN", payload: user.token });
-          // if (token) {
-          //   window.location.href = "http://localhost:5173/home";
-          // }
+          dispatch({ type: "SET_TOKEN", payload: token });
+          if (token) {
+            dispatch({ type: "USER_INFO", payload: user.user.username });
+
+            window.location.href = "http://localhost:5173/home";
+          }
           return res.data;
         });
     } catch (error) {
@@ -35,18 +36,17 @@ export const logout = () => {
   return async (dispatch, getState) => {
     console.log(getState().token);
     try {
-      // Get the token from the storage
       axios
         .post("http://localhost:4000/logout", {
           headers: {
             "Content-Type": "application/json; charset=utf-8",
-            //add headers when data is not accepted by backend
           },
         })
         .then(() => {
           clearToken();
           dispatch({ type: "SET_TOKEN", payload: null });
-          window.location.href = "http://localhost:5173/";
+          dispatch({ type: "USER_INFO", payload: null });
+          window.location.href = "http://localhost:5173/login";
         });
     } catch (error) {
       // Handle any errors that occur during the logout process

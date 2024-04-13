@@ -1,5 +1,5 @@
-export const saveToken = (user) => {
-  localStorage.setItem("user", JSON.stringify(user));
+export const saveToken = (token) => {
+  localStorage.setItem("token", token);
 };
 
 export const loadToken = () => {
@@ -23,7 +23,7 @@ export const loadToken = () => {
 
 export const clearToken = () => {
   try {
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     return null;
   } catch (error) {
     return null;
