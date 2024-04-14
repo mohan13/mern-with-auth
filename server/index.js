@@ -29,4 +29,6 @@ app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use("/", authRoute);
+app.use(express.static("../client/dist"));
+
+app.use("/api/auth", authRoute);
