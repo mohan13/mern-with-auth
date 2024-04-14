@@ -1,7 +1,7 @@
 import axios from "axios";
 import { clearToken, saveToken } from "./utils";
 
-const BASE_URL = "http://localhost:4000";
+const BASE_URL = "http://localhost:4000/api/auth";
 
 export const login = (formData) => {
   return async (dispatch) => {

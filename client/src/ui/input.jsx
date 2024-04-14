@@ -1,17 +1,20 @@
 import { Input as TextInput } from "@nextui-org/react";
 
-export default function Input() {
+export default function Input({ type, label, placeholder, ...props }) {
   return (
     <div className="">
       <TextInput
-        type="email"
-        label="Email"
+        type={type}
+        // label={label}
+        label=""
+        radius={"sm"}
         labelPlacement="outside"
-        placeholder="Enter your email"
-        className="text-4xl text-red-400"
+        placeholder={placeholder}
         classNames={{
-          input: "text-4xl",
+          input: "text-base ",
+          label: "text-lg ",
         }}
+        {...props}
       />
     </div>
   );
