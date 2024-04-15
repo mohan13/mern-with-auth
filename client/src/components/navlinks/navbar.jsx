@@ -8,11 +8,11 @@ const menuItems = [
     href: "/home",
   },
   {
-    name: "About",
-    href: "#",
+    name: "Dashboard",
+    href: "/dashboard",
   },
   {
-    name: "Contact",
+    name: "Write Your Blog Here",
     href: "/contact",
   },
 ];
@@ -26,8 +26,6 @@ export const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  console.log("userInfo", userInfo);
 
   return (
     <div className="relative w-full bg-white">
@@ -49,28 +47,19 @@ export const Navbar = () => {
           </span>
           <span className="font-bold">DevUI</span>
         </div>
-        <div className="hidden grow items-start lg:flex">
-          {/* {token ? (
-            <ul className="ml-12 inline-flex space-x-8">
-              {menuItems.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="inline-flex items-center text-sm font-semibold text-gray-800 hover:text-gray-900"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <Link
-              href="/"
-              className="inline-flex items-center text-sm font-semibold text-gray-800 hover:text-gray-900"
-            >
-              Home
-            </Link>
-          )} */}
+        <div className="hidden  justify-center grow items-start lg:flex">
+          <ul className="ml-12 inline-flex space-x-8">
+            {menuItems.map((item) => (
+              <li key={item.name}>
+                <a
+                  href={item.href}
+                  className="inline-flex items-center text-sm font-semibold text-gray-800 hover:text-gray-900"
+                >
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="hidden space-x-2 lg:block">
           {userInfo !== null ? (

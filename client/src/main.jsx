@@ -9,8 +9,9 @@ import { NextUIProvider } from "@nextui-org/react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import { store, persistor } from "./redux/store.js";
-import ContactPage from "./pages/Contact-Us/index.jsx";
+// import ContactPage from "./pages/Contact-Us/index.jsx";
 import { PersistGate } from "redux-persist/integration/react";
+import DashboardPage from "./pages/dashboard/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,8 +31,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/contact",
-        element: <ContactPage />,
+        path: "/dashboard",
+        element: <DashboardPage />,
       },
     ],
   },
