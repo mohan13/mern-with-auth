@@ -1,9 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Home from "./pages/Home";
 import { Provider } from "react-redux";
 import { NextUIProvider } from "@nextui-org/react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -11,7 +8,12 @@ import "./index.css";
 import { store, persistor } from "./redux/store.js";
 // import ContactPage from "./pages/Contact-Us/index.jsx";
 import { PersistGate } from "redux-persist/integration/react";
-import DashboardPage from "./pages/dashboard/index.jsx";
+import Login from "./pages/Login.jsx";
+import Signup from "./pages/Signup.jsx";
+import Home from "./pages/Home.jsx";
+import Dasbhoard from "./pages/Dasbhoard.jsx";
+import AddPost from "./pages/AddPost.jsx";
+import EditPost from "./pages/EditPost.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +34,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <DashboardPage />,
+        element: <Dasbhoard />,
+      },
+      {
+        path: "/addpost",
+        element: <AddPost />,
+      },
+      {
+        path: "/editpost",
+        element: <EditPost />,
       },
     ],
   },

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/apiAction";
+import { logout } from "../redux/apiAction";
 
 const Home = () => {
   const { userInfo } = useSelector((state) => state);

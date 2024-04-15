@@ -12,8 +12,12 @@ const menuItems = [
     href: "/dashboard",
   },
   {
-    name: "Write Your Blog Here",
-    href: "/contact",
+    name: "Add Post",
+    href: "/addpost",
+  },
+  {
+    name: "Edit Post",
+    href: "/editpost",
   },
 ];
 
