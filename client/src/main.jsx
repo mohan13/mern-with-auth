@@ -10,10 +10,10 @@ import { store, persistor } from "./redux/store.js";
 import { PersistGate } from "redux-persist/integration/react";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
-import Home from "./pages/Home.jsx";
-import Dasbhoard from "./pages/Dasbhoard.jsx";
 import AddPost from "./pages/AddPost.jsx";
 import EditPost from "./pages/EditPost.jsx";
+import Dasbhoardpage from "./pages/Dasbhoard.jsx";
+import Homepage from "./pages/Home.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,15 +30,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/home",
-        element: <Home />,
+        element: <Homepage />,
       },
       {
         path: "/dashboard",
-        element: <Dasbhoard />,
+        element: <Dasbhoardpage />,
       },
       {
         path: "/addpost",
-        element: <AddPost />,
+        element: <AddPost/>,
       },
       {
         path: "/editpost",

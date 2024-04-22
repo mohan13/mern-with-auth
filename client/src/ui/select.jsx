@@ -1,35 +1,38 @@
 /* eslint-disable react/prop-types */
 import React, { useId } from "react";
+import { useField } from "formik";
 
-const Select = ({ options, label, className, errorMessage, ...props }, ref) => {
+const Select = ({ options, label, className, ...props }, ref) => {
   const id = useId();
+  const [field, meta] = useField(props);
 
   return (
-    <div className="w-full md:w-1/3">
+    <div className="w-full">
       {label && (
         <label
           htmlFor={id}
-          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          className="block mb-2 text-sm font-medium text-gray-900"
         >
           {label}
         </label>
       )}
       <select
-        className={`
-    flex h-10 w-full rounded-md  bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 ${className}        `}
+        className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ${className}`}
+        {...field}
         {...props}
         id={id}
         ref={ref}
-      />
-
-      {options?.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-      {errorMessage && (
-        <p className="mt-1 text-xs text-red-500">*{errorMessage}</p>
-      )}
+      >
+        <option value="">--- Select ---</option>
+        {options?.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+      {meta.touched && meta.error ? (
+        <div className="mt-1 text-xs text-red-500">*{meta.error}</div>
+      ) : null}
     </div>
   );
 };

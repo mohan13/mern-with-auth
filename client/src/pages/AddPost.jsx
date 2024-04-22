@@ -1,5 +1,7 @@
+import { AddPostForm } from "../components/forms/AddPost";
+
 const AddPost = () => {
-  return <div>AddPost</div>;
+  return <AddPostForm />;
 };
 
 export default AddPost;

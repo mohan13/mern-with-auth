@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 // import { Button as Btn } from "@nextui-org/react";
 
-const Button = ({
-  type = "button",
+export const Button = ({
+  type = "",
   bgColor = "bg-black",
   textColor = "text-white",
   children,
@@ -21,5 +21,3 @@ const Button = ({
     </button>
   );
 };
-
-export default Button;

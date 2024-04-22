@@ -1,105 +1,114 @@
-import React from "react";
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  User,
-  Chip,
-  Tooltip,
-} from "@nextui-org/react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBlogs } from "../../redux/apiAction";
 
-import { columns, users } from "./data";
+export const Dashboard = () => {
+  const dispatch = useDispatch();
+  const { blogs, isLoading } = useSelector((state) => state);
+  useEffect(() => {
+    dispatch(fetchBlogs());
+  }, [dispatch]);
 
-const statusColorMap = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
-};
+  if (isLoading) {
+    return <div>Loading....</div>;
+  }
 
-export default function Dashboard() {
-  const renderCell = React.useCallback((user, columnKey) => {
-    const cellValue = user[columnKey];
-
-    switch (columnKey) {
-      case "name":
-        return (
-          <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            description={user.email}
-            name={cellValue}
-          >
-            {user.email}
-          </User>
-        );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">
-              {user.team}
-            </p>
-          </div>
-        );
-      case "status":
-        return (
-          <Chip
-            className="capitalize"
-            color={statusColorMap[user.status]}
-            size="sm"
-            variant="flat"
-          >
-            {cellValue}
-          </Chip>
-        );
-      case "actions":
-        return (
-          <div className="relative flex items-center gap-2">
-            <Tooltip content="Details">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                view
-              </span>
-            </Tooltip>
-            <Tooltip content="Edit user">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                Edit
-              </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Delete user">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                Delete
-              </span>
-            </Tooltip>
-          </div>
-        );
-      default:
-        return cellValue;
-    }
-  }, []);
-
+  console.log(blogs);
   return (
-    <Table aria-label="Example table with custom cells">
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
+    <section className="mx-auto w-full max-w-7xl px-4 py-4">
+      <div className="flex flex-col space-y-4  md:flex-row md:items-center md:justify-between md:space-y-0">
+        <div>
+          <h2 className="text-lg font-semibold">Employees</h2>
+          <p className="mt-1 text-sm text-gray-700">
+            This is a list of all employees. You can add new employees, edit or
+            delete existing ones.
+          </p>
+        </div>
+        <div>
+          <button
+            type="button"
+            className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
           >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={users}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
-            )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+            Add new employee
+          </button>
+        </div>
+      </div>
+      <div className="mt-6 flex flex-col">
+        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+            <div className="overflow-hidden border border-gray-200 md:rounded-lg">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-12 py-3.5 text-left text-sm font-normal text-gray-700"
+                    >
+                      Title
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+                    >
+                      Category
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+                    >
+                      Description
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+                    >
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200 bg-white">
+                  {blogs?.map((item) => (
+                    <tr key={item._id}>
+                      <td className="whitespace-nowrap px-4 py-4">
+                        <div className="flex items-center">
+                          {/* <div  className="h-10 w-10 flex-shrink-0">
+                          <img
+                             className="h-10 w-10 rounded-full object-cover"
+                            src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1160&amp;q=80"
+                            alt=""
+                          />
+                        </div> */}
+                          <div className="ml-4">
+                            <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                              {item.title}
+                            </td>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                        {item.category}
+                      </td>
+
+                      <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                        {item.description}
+                      </td>
+
+                      <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                        {item.createdAt}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-4 text-right text-sm font-medium">
+                        <a href="#" className="text-gray-700">
+                          Edit
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
-}
+};

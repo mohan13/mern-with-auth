@@ -1,13 +1,49 @@
 import axios from "axios";
 import { clearToken, saveToken } from "./utils";
+const BASE_URL = "http://localhost:4000/api";
 
-const BASE_URL = "http://localhost:4000/api/auth";
+export const fetchBlogs = () => {
+  return async (dispatch) => {
+    dispatch({ type: "FETCH_REQUEST" });
+    try {
+      await axios.get(`${BASE_URL}/blogs/posted-blogs`).then((res) => {
+        console.log("blogs", res);
+        dispatch({ type: "FETCH_SUCCESS", payload: res.data.data });
+      });
+    } catch (error) {
+      dispatch({ type: "FAILED_MESSAGE", payload: error.response.data.msg });
+    }
+  };
+};
+
+export const writeBlog = (formData) => {
+  return async (dispatch) => {
+    try {
+      await axios
+        .post(`${BASE_URL}/blogs/blogpost`, formData, {
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          },
+        })
+        .then((res) => {
+          dispatch({
+            type: "SUCCESS_MESSAGE",
+            payload: { type: "success", message: "Blog posted successfully !" },
+          });
+          console.log(res.response.data.msg);
+        });
+    } catch (error) {
+      dispatch({ type: "FAILED_MESSAGE", payload: error.response.data.msg });
+      console.log(error.response.data.msg);
+    }
+  };
+};
 
 export const login = (formData) => {
   return async (dispatch) => {
     try {
       await axios
-        .post(`${BASE_URL}/login`, formData, {
+        .post(`${BASE_URL}/auth/login`, formData, {
           headers: {
             "Content-Type": "application/json; charset=utf-8",
           },
