@@ -1,19 +1,17 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBlogs } from "../../redux/apiAction";
+import { deleteBlog, fetchBlogs } from "../../redux/apiAction";
+import { formatDateTime } from "../../utils/getTimeDate";
+import { useNavigate } from "react-router-dom";
 
 export const Dashboard = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { blogs, isLoading } = useSelector((state) => state);
   useEffect(() => {
     dispatch(fetchBlogs());
   }, [dispatch]);
 
-  if (isLoading) {
-    return <div>Loading....</div>;
-  }
-
-  console.log(blogs);
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-4">
       <div className="flex flex-col space-y-4  md:flex-row md:items-center md:justify-between md:space-y-0">
@@ -25,12 +23,9 @@ export const Dashboard = () => {
           </p>
         </div>
         <div>
-          <button
-            type="button"
-            className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-          >
+          <div className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
             Add new employee
-          </button>
+          </div>
         </div>
       </div>
       <div className="mt-6 flex flex-col">
@@ -40,6 +35,12 @@ export const Dashboard = () => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
+                    <th
+                      scope="col"
+                      className="px-2 py-3.5 text-left text-sm font-normal text-gray-700"
+                    >
+                      S.N
+                    </th>
                     <th
                       scope="col"
                       className="px-12 py-3.5 text-left text-sm font-normal text-gray-700"
@@ -66,44 +67,72 @@ export const Dashboard = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
-                  {blogs?.map((item) => (
-                    <tr key={item._id}>
-                      <td className="whitespace-nowrap px-4 py-4">
-                        <div className="flex items-center">
-                          {/* <div  className="h-10 w-10 flex-shrink-0">
-                          <img
-                             className="h-10 w-10 rounded-full object-cover"
-                            src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1160&amp;q=80"
-                            alt=""
-                          />
-                        </div> */}
-                          <div className="ml-4">
-                            <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                              {item.title}
-                            </td>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                        {item.category}
-                      </td>
+                {isLoading ? (
+                  <tbody className="divide-y divide-gray-200 bg-white">
+                    <tr>Loading....</tr>
+                  </tbody>
+                ) : (
+                  <tbody className="divide-y divide-gray-200 bg-white">
+                    {blogs?.map((item, index) => {
+                      return (
+                        <tr key={item._id}>
+                          <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                            {index + 1}
+                          </td>
+                          <td className="whitespace-nowrap px-4 py-4">
+                            <div className="flex items-center">
+                              {/* <div  className="h-10 w-10 flex-shrink-0">
+                      <img
+                         className="h-10 w-10 rounded-full object-cover"
+                        src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1160&amp;q=80"
+                        alt=""
+                      />
+                    </div> */}
+                              <div className="ml-4">
+                                <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                                  {item.title}
+                                </td>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                            {item.category}
+                          </td>
 
-                      <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                        {item.description}
-                      </td>
+                          <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                            {item.description}
+                          </td>
 
-                      <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                        {item.createdAt}
-                      </td>
-                      <td className="whitespace-nowrap px-4 py-4 text-right text-sm font-medium">
-                        <a href="#" className="text-gray-700">
-                          Edit
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
+                          <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                            {formatDateTime(item.createdAt)}
+                          </td>
+                          <td className="whitespace-nowrap px-4 py-4 text-right text-sm font-medium">
+                            <div className="flex gap-2">
+                              <button
+                                className="cursor-pointer"
+                                onClick={() => dispatch(deleteBlog(item._id))}
+                              >
+                                Delete
+                              </button>
+                              <div
+                                className="cursor-pointer"
+                                onClick={() => navigate(`/${String(item._id)}`)}
+                              >
+                                View
+                              </div>
+                              <div
+                                className="cursor-pointer"
+                                onClick={() => alert("Edit your blogs ")}
+                              >
+                                Edit
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                )}
               </table>
             </div>
           </div>

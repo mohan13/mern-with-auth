@@ -1,16 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
+import { Button } from "../../ui/button";
 import { logout } from "../../redux/apiAction";
 
 const Home = () => {
+  // const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state);
   const dispatch = useDispatch();
-  console.log(userInfo);
+
   return (
     <>
-      <div className="home_page">
+      <div className="grid gap-4">
         <h4>Welcome</h4>
         {userInfo}
-        <button onClick={() => dispatch(logout())}>LOGOUT</button>
+        <Button onClick={() => dispatch(logout())}>Log Out</Button>
+        {/* <Buttoo onClick={() => dispatch(logout())}>LOGOUT</Buttoo> */}
       </div>
     </>
   );

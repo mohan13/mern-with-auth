@@ -1,5 +1,6 @@
 const initialState = {
   blogs: {},
+  blogDetails: {},
   isLoading: false,
   error: null,
   success: null,
@@ -11,6 +12,9 @@ const initialState = {
 
 const apiReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "BLOG_DETAILS":
+      return { ...state, blogDetails: action.payload, isLoading: false };
+
     case "FETCH_REQUEST":
       return { ...state, isLoading: true, error: null };
     case "FETCH_SUCCESS":
@@ -30,7 +34,7 @@ const apiReducer = (state = initialState, action) => {
       return { ...state, token: action.payload };
 
     case "FAILED_MESSAGE":
-      return { ...state, error: action.payload };
+      return { ...state, error: action.payload, isLoading: false };
 
     case "SUCCESS_MESSAGE":
       return { ...state, error: action.payload };

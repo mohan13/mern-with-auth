@@ -15,10 +15,10 @@ const menuItems = [
     name: "Add Post",
     href: "/addpost",
   },
-  {
-    name: "Edit Post",
-    href: "/editpost",
-  },
+  // {
+  //   name: "Edit Post",
+  //   href: "/editpost",
+  // },
 ];
 
 export const Navbar = () => {

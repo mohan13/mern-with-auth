@@ -1,13 +1,21 @@
 import axios from "axios";
 import { clearToken, saveToken } from "./utils";
-const BASE_URL = "http://localhost:4000/api";
+import {
+  BASE_URL,
+  ADDBLOG,
+  LOGIN,
+  LOGOUT,
+  VIEW_ALL_BLOGS,
+  DELETE_BLOG,
+  VIEW_DETAILS_BLOGS,
+} from "../config";
+// const BASE_URL = "http://localhost:4000/api";
 
 export const fetchBlogs = () => {
   return async (dispatch) => {
     dispatch({ type: "FETCH_REQUEST" });
     try {
-      await axios.get(`${BASE_URL}/blogs/posted-blogs`).then((res) => {
-        console.log("blogs", res);
+      await axios.get(`${BASE_URL}/${VIEW_ALL_BLOGS}`).then((res) => {
         dispatch({ type: "FETCH_SUCCESS", payload: res.data.data });
       });
     } catch (error) {
@@ -16,11 +24,49 @@ export const fetchBlogs = () => {
   };
 };
 
+export const deleteBlog = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`${BASE_URL}/${DELETE_BLOG}/${id}`).then(() => {
+        dispatch({
+          type: "SUCCESS_MESSAGE",
+          payload: "Successfully deleted !",
+        });
+
+        location.reload();
+      });
+    } catch (error) {
+      dispatch({ type: "FAILED_MESSAGE", payload: "something wrong here" });
+    }
+  };
+};
+
+export const viewDetails = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: "FETCH_REQUEST" });
+
+    try {
+      await axios.get(`${BASE_URL}/${VIEW_DETAILS_BLOGS}/${id}`).then((res) => {
+        dispatch({
+          type: "BLOG_DETAILS",
+          payload: res.data.details,
+        });
+        // dispatch({ type: "FETCH_SUCCESS", payload: res.data.details });
+      });
+    } catch (error) {
+      dispatch({
+        type: "FAILED_MESSAGE",
+        payload: "Details fetching failed !",
+      });
+    }
+  };
+};
+
 export const writeBlog = (formData) => {
   return async (dispatch) => {
     try {
       await axios
-        .post(`${BASE_URL}/blogs/blogpost`, formData, {
+        .post(`${BASE_URL}/${ADDBLOG}`, formData, {
           headers: {
             "Content-Type": "application/json; charset=utf-8",
           },
@@ -28,13 +74,11 @@ export const writeBlog = (formData) => {
         .then((res) => {
           dispatch({
             type: "SUCCESS_MESSAGE",
-            payload: { type: "success", message: "Blog posted successfully !" },
+            payload: res.data.msg,
           });
-          console.log(res.response.data.msg);
         });
     } catch (error) {
-      dispatch({ type: "FAILED_MESSAGE", payload: error.response.data.msg });
-      console.log(error.response.data.msg);
+      dispatch({ type: "FAILED_MESSAGE", payload: error.data.msg });
     }
   };
 };
@@ -43,7 +87,7 @@ export const login = (formData) => {
   return async (dispatch) => {
     try {
       await axios
-        .post(`${BASE_URL}/auth/login`, formData, {
+        .post(`${BASE_URL}/${LOGIN}`, formData, {
           headers: {
             "Content-Type": "application/json; charset=utf-8",
           },
@@ -73,7 +117,7 @@ export const logout = () => {
     console.log(getState().token);
     try {
       axios
-        .post("http://localhost:4000/logout", {
+        .post(`${BASE_URL}/${LOGOUT}`, {
           headers: {
             "Content-Type": "application/json; charset=utf-8",
           },
@@ -85,7 +129,6 @@ export const logout = () => {
           window.location.href = "http://localhost:5173/login";
         });
     } catch (error) {
-      // Handle any errors that occur during the logout process
       console.error("An error occurred during logout:", error);
     }
   };

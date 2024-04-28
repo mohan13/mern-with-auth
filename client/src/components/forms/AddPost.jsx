@@ -26,7 +26,9 @@ export const AddPostForm = () => {
               formData.append("description", values.description);
               formData.append("category", values.category);
               dispatch(writeBlog(formData));
-              resetForm({ values: { email: "", password: "" } });
+              resetForm({
+                values: { title: "", category: "", description: "" },
+              });
             } catch (error) {
               console.log(error.message);
             }

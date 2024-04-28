@@ -6,6 +6,16 @@ const getBlogs = asyncHandler(async (_, res) => {
   return res.json({ msg: "All blogs here . . . ", data });
 });
 
+const deleteBlog = asyncHandler(async (req, res) => {
+  let blog = await Blog.findByIdAndDelete(req.params.id);
+  return res.json({ msg: "Blog deleted .... !", blog });
+});
+
+const blogDetails = asyncHandler(async (req, res) => {
+  let details = await Blog.findById(req.params.id);
+  return res.json({ msg: "All details here", details });
+});
+
 const PostBlogs = asyncHandler(async (req, res) => {
   const { title, description, category } = req.body;
 
@@ -13,4 +23,4 @@ const PostBlogs = asyncHandler(async (req, res) => {
   return res.status(200).json({ msg: "blog posted successfully ", blogs });
 });
 
-module.exports = { PostBlogs, getBlogs };
+module.exports = { PostBlogs, getBlogs, deleteBlog, blogDetails };

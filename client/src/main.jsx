@@ -14,6 +14,7 @@ import AddPost from "./pages/AddPost.jsx";
 import EditPost from "./pages/EditPost.jsx";
 import Dasbhoardpage from "./pages/Dasbhoard.jsx";
 import Homepage from "./pages/Home.jsx";
+import BlogDetails from "./pages/BlogDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,11 +39,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/addpost",
-        element: <AddPost/>,
+        element: <AddPost />,
       },
       {
         path: "/editpost",
         element: <EditPost />,
+      },
+      {
+        path: "/:id",
+        element: <BlogDetails />,
       },
     ],
   },

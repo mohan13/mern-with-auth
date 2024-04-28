@@ -1,4 +1,10 @@
-const { PostBlogs, getBlogs } = require("../Controller/BlogController");
+const {
+  PostBlogs,
+  getBlogs,
+  deleteBlog,
+  blogDetails,
+} = require("../Controller/BlogController");
+
 // const uploadImage = require("../Middlewares/multer.middleware");
 const router = require("express").Router();
 
@@ -20,6 +26,8 @@ const router = require("express").Router();
 // router.post("/blog", PostBlogs);
 router.post("/blogpost", PostBlogs);
 router.get("/posted-blogs", getBlogs);
+router.delete("/:id", deleteBlog);
+router.get("/:id", blogDetails);
 
 // router.post("/blogposts", BlogsController.PostBlogs);
 module.exports = router;
