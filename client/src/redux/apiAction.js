@@ -44,7 +44,6 @@ export const deleteBlog = (id) => {
 export const viewDetails = (id) => {
   return async (dispatch) => {
     dispatch({ type: "FETCH_REQUEST" });
-
     try {
       await axios.get(`${BASE_URL}/${VIEW_DETAILS_BLOGS}/${id}`).then((res) => {
         dispatch({
@@ -53,6 +52,28 @@ export const viewDetails = (id) => {
         });
         // dispatch({ type: "FETCH_SUCCESS", payload: res.data.details });
       });
+    } catch (error) {
+      dispatch({
+        type: "FAILED_MESSAGE",
+        payload: "Details fetching failed !",
+      });
+    }
+  };
+};
+
+export const updateBlogs = (id, formData) => {
+  return async (dispatch) => {
+    try {
+      console.log("formdata", id, formData);
+      await axios
+        .patch(`${BASE_URL}/${VIEW_DETAILS_BLOGS}/${id}`, formData, {
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          },
+        })
+        .then((res) => {
+          dispatch({ type: "SUCCESS_MESSAGE", payload: res.data.msg });
+        });
     } catch (error) {
       dispatch({
         type: "FAILED_MESSAGE",

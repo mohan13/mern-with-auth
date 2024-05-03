@@ -16,6 +16,22 @@ const blogDetails = asyncHandler(async (req, res) => {
   return res.json({ msg: "All details here", details });
 });
 
+const updateBlog = asyncHandler(async (req, res) => {
+  const { title, description, category } = req.body;
+
+  const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, {
+    title,
+    description,
+    category,
+  });
+
+  await updatedBlog.save();
+
+  return res
+    .status(200)
+    .json({ msg: "blog updated successfully ", updatedBlog });
+});
+
 const PostBlogs = asyncHandler(async (req, res) => {
   const { title, description, category } = req.body;
 
@@ -23,4 +39,4 @@ const PostBlogs = asyncHandler(async (req, res) => {
   return res.status(200).json({ msg: "blog posted successfully ", blogs });
 });
 
-module.exports = { PostBlogs, getBlogs, deleteBlog, blogDetails };
+module.exports = { PostBlogs, getBlogs, deleteBlog, blogDetails, updateBlog };

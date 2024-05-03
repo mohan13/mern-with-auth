@@ -12,6 +12,8 @@ export const Dashboard = () => {
     dispatch(fetchBlogs());
   }, [dispatch]);
 
+  console.log("blogs", blogs, typeof blogs);
+
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-4">
       <div className="flex flex-col space-y-4  md:flex-row md:items-center md:justify-between md:space-y-0">
@@ -73,7 +75,7 @@ export const Dashboard = () => {
                   </tbody>
                 ) : (
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {blogs?.map((item, index) => {
+                    {Object.values(blogs)?.map((item, index) => {
                       return (
                         <tr key={item._id}>
                           <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
@@ -116,13 +118,17 @@ export const Dashboard = () => {
                               </button>
                               <div
                                 className="cursor-pointer"
-                                onClick={() => navigate(`/${String(item._id)}`)}
+                                onClick={() =>
+                                  navigate(`/details/${String(item._id)}`)
+                                }
                               >
                                 View
                               </div>
                               <div
                                 className="cursor-pointer"
-                                onClick={() => alert("Edit your blogs ")}
+                                onClick={() =>
+                                  navigate(`/editpost/${String(item._id)}`)
+                                }
                               >
                                 Edit
                               </div>

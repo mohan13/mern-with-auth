@@ -1,11 +1,12 @@
+/* eslint-disable react/prop-types */
 import { Form, Formik } from "formik";
 import Select from "../../ui/select";
 import { Button } from "../../ui/button";
 import Input from "../../ui/input";
 import Textarea from "../../ui/description";
 import { useDispatch } from "react-redux";
-import { writeBlog } from "../../redux/apiAction";
-export const EditBlogForm = () => {
+import { updateBlogs } from "../../redux/apiAction";
+export const EditBlogForm = ({ blogsData }) => {
   const dispatch = useDispatch();
 
   return (
@@ -15,15 +16,18 @@ export const EditBlogForm = () => {
           Edit your product
         </h2>
         <Formik
-          initialValues={{ title: "", category: "", description: "" }}
+          initialValues={blogsData[0]}
+          enableReinitialize // to refresh initial data
           onSubmit={(values, { resetForm }) => {
             try {
               let formData = new FormData();
               formData.append("title", values.title);
               formData.append("description", values.description);
               formData.append("category", values.category);
-              dispatch(writeBlog(formData));
-              resetForm({ values: { email: "", password: "" } });
+              dispatch(updateBlogs(values._id, formData));
+              resetForm({
+                values: { title: "", category: "", description: "" },
+              });
             } catch (error) {
               console.log(error.message);
             }

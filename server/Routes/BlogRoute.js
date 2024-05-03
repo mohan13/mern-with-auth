@@ -3,6 +3,7 @@ const {
   getBlogs,
   deleteBlog,
   blogDetails,
+  updateBlog,
 } = require("../Controller/BlogController");
 
 // const uploadImage = require("../Middlewares/multer.middleware");
@@ -28,6 +29,7 @@ router.post("/blogpost", PostBlogs);
 router.get("/posted-blogs", getBlogs);
 router.delete("/:id", deleteBlog);
 router.get("/:id", blogDetails);
+router.patch("/:id", updateBlog);
 
 // router.post("/blogposts", BlogsController.PostBlogs);
 module.exports = router;

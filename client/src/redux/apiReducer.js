@@ -5,9 +5,7 @@ const initialState = {
   error: null,
   success: null,
   token: null,
-  userInfo: localStorage.getItem("user")
-    ? JSON.parse(localStorage.getItem("user"))
-    : null,
+  userInfo: null,
 };
 
 const apiReducer = (state = initialState, action) => {
@@ -17,8 +15,10 @@ const apiReducer = (state = initialState, action) => {
 
     case "FETCH_REQUEST":
       return { ...state, isLoading: true, error: null };
+
     case "FETCH_SUCCESS":
       return { ...state, blogs: action.payload, isLoading: false };
+
     case "USER_INFO":
       if (action.payload === null) {
         return { ...state, isLoading: false, userInfo: null };
@@ -37,7 +37,7 @@ const apiReducer = (state = initialState, action) => {
       return { ...state, error: action.payload, isLoading: false };
 
     case "SUCCESS_MESSAGE":
-      return { ...state, error: action.payload };
+      return { ...state, isLoading: false };
 
     default:
       return state;

@@ -42,12 +42,12 @@ const router = createBrowserRouter([
         element: <AddPost />,
       },
       {
-        path: "/editpost",
-        element: <EditPost />,
+        path: "/details/:id",
+        element: <BlogDetails />,
       },
       {
-        path: "/:id",
-        element: <BlogDetails />,
+        path: "/editpost/:id",
+        element: <EditPost />,
       },
     ],
   },
