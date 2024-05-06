@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteBlog, fetchBlogs } from "../../redux/apiAction";
 import { formatDateTime } from "../../utils/getTimeDate";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export const Dashboard = () => {
     dispatch(fetchBlogs());
   }, [dispatch]);
 
-  console.log("blogs", blogs, typeof blogs);
+  console.log("blogs", blogs[0].images, typeof blogs);
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-4">
@@ -83,13 +84,13 @@ export const Dashboard = () => {
                           </td>
                           <td className="whitespace-nowrap px-4 py-4">
                             <div className="flex items-center">
-                              {/* <div  className="h-10 w-10 flex-shrink-0">
-                      <img
-                         className="h-10 w-10 rounded-full object-cover"
-                        src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1160&amp;q=80"
-                        alt=""
-                      />
-                    </div> */}
+                              <div className="h-10 w-10 flex-shrink-0">
+                                <img
+                                  className="h-10 w-10 rounded-full object-cover"
+                                  src={item.images}
+                                  alt={item.title}
+                                />
+                              </div>
                               <div className="ml-4">
                                 <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
                                   {item.title}
