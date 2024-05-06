@@ -1,5 +1,6 @@
 const Blog = require("../Models/BlogsModel");
 const asyncHandler = require("../util/asyncHandler");
+const { uploadOnCloudinary } = require("../util/cloudinaryConfig");
 
 const getBlogs = asyncHandler(async (_, res) => {
   const data = await Blog.find();
@@ -35,8 +36,22 @@ const updateBlog = asyncHandler(async (req, res) => {
 const PostBlogs = asyncHandler(async (req, res) => {
   const { title, description, category } = req.body;
 
-  const blogs = await Blog.create({ title, description, category });
+  const images = req.file.path;
+
+  // if (!blogImageLocalPath) {
+  //   return res.status(400).json({ msg: "No file uploaded" });
+  // }
+
+  // const blogImage = await uploadOnCloudinary(blogImageLocalPath);
+
+  const blogs = await Blog.create({
+    title,
+    description,
+    category,
+    images,
+  });
+
   return res.status(200).json({ msg: "blog posted successfully ", blogs });
 });
-
+console.log(PostBlogs);
 module.exports = { PostBlogs, getBlogs, deleteBlog, blogDetails, updateBlog };

@@ -15,6 +15,7 @@ import EditPost from "./pages/EditPost.jsx";
 import Dasbhoardpage from "./pages/Dasbhoard.jsx";
 import Homepage from "./pages/Home.jsx";
 import BlogDetails from "./pages/BlogDetails.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/update-password",
+        element: <ForgotPassword />,
       },
       {
         path: "/signup",

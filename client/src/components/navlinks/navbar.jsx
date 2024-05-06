@@ -1,12 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/react";
+import { logout } from "../../redux/apiAction";
 
 const menuItems = [
-  {
-    name: "Home",
-    href: "/home",
-  },
   {
     name: "Dashboard",
     href: "/dashboard",
@@ -24,6 +27,7 @@ const menuItems = [
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // const { userInfo, token } = useSelector((state) => state);
   const userInfo = useSelector((state) => state.userInfo);
 
@@ -67,7 +71,17 @@ export const Navbar = () => {
         </div>
         <div className="hidden space-x-2 lg:block">
           {userInfo !== null ? (
-            <div>{userInfo}</div>
+            <Dropdown>
+              <DropdownTrigger>
+                <div>{userInfo}</div>
+              </DropdownTrigger>
+              <DropdownMenu>
+                <DropdownItem onClick={() => dispatch(logout())}>
+                  Log Out
+                </DropdownItem>
+                <DropdownItem>Change Password</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           ) : (
             <button
               onClick={() => navigate("/login")}

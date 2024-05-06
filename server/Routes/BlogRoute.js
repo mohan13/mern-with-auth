@@ -6,7 +6,7 @@ const {
   updateBlog,
 } = require("../Controller/BlogController");
 
-// const uploadImage = require("../Middlewares/multer.middleware");
+const uploadImage = require("../Middlewares/multer.middleware");
 const router = require("express").Router();
 
 // const storage = multer.diskStorage({
@@ -24,8 +24,7 @@ const router = require("express").Router();
 // const upload = multer({ storage: storage });
 
 // router.post("/blogposts", upload.single("images"), BlogsController.PostBlogs);
-// router.post("/blog", PostBlogs);
-router.post("/blogpost", PostBlogs);
+router.post("/blogpost", uploadImage.single("images"), PostBlogs);
 router.get("/posted-blogs", getBlogs);
 router.delete("/:id", deleteBlog);
 router.get("/:id", blogDetails);

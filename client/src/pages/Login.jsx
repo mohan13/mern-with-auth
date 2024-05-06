@@ -2,6 +2,7 @@ import { Formik, Field, Form } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/apiAction";
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -54,9 +55,17 @@ const Login = () => {
                 </div>
 
                 <div className="mt-2">
-                  <label className="text-base font-medium text-gray-900">
-                    Password
-                  </label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="text-base font-medium text-gray-900">
+                      Password
+                    </label>
+                    <Link
+                      to="/update-password"
+                      className="text-sm font-semibold text-black hover:underline"
+                    >
+                      Forgot password?{" "}
+                    </Link>
+                  </div>
                   <Field
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="text"
@@ -69,6 +78,15 @@ const Login = () => {
               <Button className="mt-2" size="sm" color="default" type="submit">
                 Submit
               </Button>
+              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                Don’t have an account yet?{" "}
+                <a
+                  href="#"
+                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                >
+                  Sign up
+                </a>
+              </p>
             </Form>
           </div>
         </div>

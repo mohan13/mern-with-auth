@@ -68,7 +68,7 @@ export const updateBlogs = (id, formData) => {
       await axios
         .patch(`${BASE_URL}/${VIEW_DETAILS_BLOGS}/${id}`, formData, {
           headers: {
-            "Content-Type": "application/json; charset=utf-8",
+            "Content-Type": "multipart/form-data",
           },
         })
         .then((res) => {
@@ -85,11 +85,12 @@ export const updateBlogs = (id, formData) => {
 
 export const writeBlog = (formData) => {
   return async (dispatch) => {
+    console.log(formData);
     try {
       await axios
         .post(`${BASE_URL}/${ADDBLOG}`, formData, {
           headers: {
-            "Content-Type": "application/json; charset=utf-8",
+            "Content-Type": "multipart/form-data",
           },
         })
         .then((res) => {
@@ -99,7 +100,7 @@ export const writeBlog = (formData) => {
           });
         });
     } catch (error) {
-      dispatch({ type: "FAILED_MESSAGE", payload: error.data.msg });
+      dispatch({ type: "FAILED_MESSAGE", payload: "Blog post failed !" });
     }
   };
 };
