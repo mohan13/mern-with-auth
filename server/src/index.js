@@ -15,7 +15,7 @@ app.use(express.static(__dirname + "/public"));
 
 require("dotenv").config();
 
-const { MONGO_URL, PORT } = process.env;
+const { MONGO_URL, PORT, WEB_URL } = process.env;
 
 mongoose
   .connect(MONGO_URL)
@@ -27,7 +27,7 @@ app.listen(PORT, () => {
 });
 
 const corsOptions = {
-  origin: "http://localhost:4173",
+  origin: WEB_URL,
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
