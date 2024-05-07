@@ -122,7 +122,7 @@ export const login = (formData) => {
           if (token) {
             dispatch({ type: "USER_INFO", payload: user.user.username });
 
-            window.location.href = "http://localhost:5173/home";
+            window.location.href = `${BASE_URL}/`;
           }
           return res.data;
         });
@@ -146,7 +146,7 @@ export const logout = () => {
           clearToken();
           dispatch({ type: "SET_TOKEN", payload: null });
           dispatch({ type: "USER_INFO", payload: null });
-          window.location.href = "http://localhost:5173/login";
+          window.location.href = `${BASE_URL}/login`;
         });
     } catch (error) {
       console.error("An error occurred during logout:", error);
