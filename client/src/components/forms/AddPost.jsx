@@ -6,9 +6,6 @@ import Textarea from "../../ui/description";
 import { useDispatch, useSelector } from "react-redux";
 import { writeBlog } from "../../redux/apiAction";
 import { toast } from "react-toastify";
-import { useState } from "react";
-import axios from "axios";
-import { ADDBLOG, BASE_URL } from "../../config";
 
 export const convertToBase64 = (file) => {
   return new Promise((resolve, reject) => {

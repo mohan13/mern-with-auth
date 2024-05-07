@@ -16,6 +16,7 @@ export const fetchBlogs = () => {
     dispatch({ type: "FETCH_REQUEST" });
     try {
       await axios.get(`${BASE_URL}/${VIEW_ALL_BLOGS}`).then((res) => {
+        console.log(res.data);
         dispatch({ type: "FETCH_SUCCESS", payload: res.data.data });
       });
     } catch (error) {
