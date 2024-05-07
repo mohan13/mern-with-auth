@@ -12,8 +12,6 @@ export const Dashboard = () => {
     dispatch(fetchBlogs());
   }, [dispatch]);
 
-  console.log("blogs", blogs[0].images, typeof blogs);
-
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-4">
       <div className="flex flex-col space-y-4  md:flex-row md:items-center md:justify-between md:space-y-0">

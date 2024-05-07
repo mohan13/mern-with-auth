@@ -15,6 +15,7 @@ export const Details = ({ blog }) => {
               <img
                 className=" w-full rounded-lg sm:h-96 object-cover"
                 src={blog.images}
+                alt={blog.title}
               />
             </div>
             <p className="mx-auto mb-6 max-w-xl font-light text-gray-500 lg:mx-0 xl:mb-8 md:text-lg xl:text-xl dark:text-gray-400">
