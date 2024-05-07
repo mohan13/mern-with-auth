@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteBlog, fetchBlogs } from "../../redux/apiAction";
 import { formatDateTime } from "../../utils/getTimeDate";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../config";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
