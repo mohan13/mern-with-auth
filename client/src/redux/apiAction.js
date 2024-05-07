@@ -16,7 +16,6 @@ export const fetchBlogs = () => {
     dispatch({ type: "FETCH_REQUEST" });
     try {
       await axios.get(`${BASE_URL}/${VIEW_ALL_BLOGS}`).then((res) => {
-        console.log(res.data);
         dispatch({ type: "FETCH_SUCCESS", payload: res.data.data });
       });
     } catch (error) {
@@ -65,7 +64,6 @@ export const viewDetails = (id) => {
 export const updateBlogs = (id, formData) => {
   return async (dispatch) => {
     try {
-      console.log("formdata", id, formData);
       await axios
         .patch(`${BASE_URL}/${VIEW_DETAILS_BLOGS}/${id}`, formData, {
           headers: {
@@ -86,7 +84,6 @@ export const updateBlogs = (id, formData) => {
 
 export const writeBlog = (formData) => {
   return async (dispatch) => {
-    console.log(formData);
     try {
       await axios
         .post(`${BASE_URL}/${ADDBLOG}`, formData, {

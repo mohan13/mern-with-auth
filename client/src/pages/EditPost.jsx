@@ -13,7 +13,6 @@ const EditPost = () => {
     dispatch(viewDetails(id));
   }, [dispatch]);
 
-  console.log("edit", id, Object.values(blogDetails));
   return (
     <>
       <EditBlogForm blogsData={[blogDetails]} />{" "}

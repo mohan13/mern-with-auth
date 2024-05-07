@@ -15,7 +15,6 @@ const Signup = () => {
         password: "",
       }}
       onSubmit={(values, { resetForm }) => {
-        console.log("ok", values);
         try {
           let formData = new FormData();
           formData.append("username", values.username);

@@ -39,7 +39,6 @@ const PostBlogs = asyncHandler(async (req, res) => {
   const imageLocalPath = req.file.path;
 
   if (!imageLocalPath) {
-    console.log(imageLocalPath);
     return res.status(400).json({ msg: "No file uploaded", imageLocalPath });
   }
 
@@ -54,5 +53,5 @@ const PostBlogs = asyncHandler(async (req, res) => {
 
   return res.status(200).json({ msg: "blog posted successfully ", blogs });
 });
-console.log(PostBlogs);
+
 module.exports = { PostBlogs, getBlogs, deleteBlog, blogDetails, updateBlog };

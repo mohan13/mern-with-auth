@@ -24,7 +24,6 @@ export const AddPostForm = () => {
   const dispatch = useDispatch();
   const { success } = useSelector((state) => state);
 
-  console.log(success);
   const handleBlogImage = async (e, setFieldValue) => {
     const file = e.target.files[0];
     if (file?.size / 1024 / 1024 < 2) {
@@ -50,8 +49,6 @@ export const AddPostForm = () => {
             images: "",
           }}
           onSubmit={(values, { resetForm }) => {
-            console.log(values.images, values);
-
             try {
               let formData = new FormData();
               formData.append("title", values.title);
@@ -60,14 +57,14 @@ export const AddPostForm = () => {
               formData.append("images", values.images);
 
               dispatch(writeBlog(formData));
-              // resetForm({
-              //   values: {
-              //     title: "",
-              //     category: "",
-              //     description: "",
-              //     images: "",
-              //   },
-              // });
+              resetForm({
+                values: {
+                  title: "",
+                  category: "",
+                  description: "",
+                  images: "",
+                },
+              });
             } catch (error) {
               console.log(error.message);
             }
