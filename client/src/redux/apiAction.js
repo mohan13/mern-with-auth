@@ -122,7 +122,7 @@ export const login = (formData) => {
           if (token) {
             dispatch({ type: "USER_INFO", payload: user.user.username });
 
-            window.location.href = `${BASE_URL}/`;
+            window.location.pathname = "/dashboard";
           }
           return res.data;
         });
