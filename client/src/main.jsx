@@ -13,9 +13,10 @@ import Signup from "./pages/Signup.jsx";
 import AddPost from "./pages/AddPost.jsx";
 import EditPost from "./pages/EditPost.jsx";
 import Dasbhoardpage from "./pages/Dasbhoard.jsx";
-import Homepage from "./pages/Home.jsx";
+
 import BlogDetails from "./pages/BlogDetails.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
+import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,17 +35,22 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <Signup />,
       },
-      {
-        path: "/home",
-        element: <Homepage />,
-      },
+
       {
         path: "/dashboard",
-        element: <Dasbhoardpage />,
+        element: (
+          <ProtectedRoute>
+            <Dasbhoardpage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/addpost",
-        element: <AddPost />,
+        element: (
+          <ProtectedRoute>
+            <AddPost />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/details/:id",

@@ -146,7 +146,7 @@ export const logout = () => {
           clearToken();
           dispatch({ type: "SET_TOKEN", payload: null });
           dispatch({ type: "USER_INFO", payload: null });
-          window.location.pathname = `/login`;
+          window.location.pathname = "/login";
         });
     } catch (error) {
       console.error("An error occurred during logout:", error);

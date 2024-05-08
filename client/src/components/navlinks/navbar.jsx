@@ -39,7 +39,7 @@ export const Navbar = () => {
     <div className="relative w-full bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
         <div className="inline-flex items-center space-x-2">
-          <span>
+          {/* <span>
             <svg
               width="30"
               height="30"
@@ -52,8 +52,8 @@ export const Navbar = () => {
                 fill="black"
               />
             </svg>
-          </span>
-          <span className="font-bold">DevUI</span>
+          </span> */}
+          <span className="font-bold">Mohan Blog</span>
         </div>
         <div className="hidden  justify-center grow items-start lg:flex">
           <ul className="ml-12 inline-flex space-x-8">
