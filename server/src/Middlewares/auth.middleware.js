@@ -24,7 +24,7 @@ const verifyJWT = asyncHandler(async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    res.status(400).json({ msg: error?.message }, "Invalid Access Token");
+    res.status(400).json({ msg: error?.message });
   }
 });
 

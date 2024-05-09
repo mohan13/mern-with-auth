@@ -5,10 +5,11 @@ import { useNavigate } from "react-router-dom";
 export const ProtectedRoute = ({ children }) => {
   const { token } = useSelector((state) => state);
   const navigate = useNavigate();
+  console.log(token);
 
   useEffect(() => {
-    if (token === null) {
-      navigate("login", { replace: true });
+    if (!token) {
+      navigate("/login", { replace: true });
     }
   }, [navigate, token]);
   return children;

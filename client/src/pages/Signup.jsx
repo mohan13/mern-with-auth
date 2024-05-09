@@ -1,12 +1,10 @@
 import axios from "axios";
 
 import { Formik, Field, Form } from "formik";
-import { useState } from "react";
-import { toast } from "react-toastify";
+import { Button } from "../ui/button";
+import { BASE_URL, SIGN_UP } from "../config";
 
 const Signup = () => {
-  const [errors, setErrors] = useState("");
-
   return (
     <Formik
       initialValues={{
@@ -21,7 +19,7 @@ const Signup = () => {
           formData.append("email", values.email);
           formData.append("password", values.password);
           axios
-            .post("http://localhost:4000/signup", formData, {
+            .post(`${BASE_URL}/${SIGN_UP}`, formData, {
               headers: {
                 "Content-Type": "application/json; charset=utf-8",
                 //add headers when data is not accepted by backend
@@ -29,8 +27,6 @@ const Signup = () => {
             })
             .then((res) => {
               console.log(res.data.msg);
-              setErrors(res.data.msg);
-              alert(res.data.msg);
             });
           resetForm({ values: { username: "", email: "", password: "" } });
         } catch (error) {
@@ -76,6 +72,9 @@ const Signup = () => {
                   </div>
                 </div>
                 <div className="mt-2">
+                  <label className="text-base font-medium text-gray-900">
+                    Password
+                  </label>
                   <Field
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="text"
@@ -84,7 +83,9 @@ const Signup = () => {
                   />
                 </div>
               </div>
-              {toast.warn({ errors })} <button type="submit">Submit</button>
+              <Button type="submit" className="mt-3">
+                Submit
+              </Button>
             </Form>
           </div>
         </div>
