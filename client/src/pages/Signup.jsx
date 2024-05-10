@@ -3,6 +3,7 @@ import axios from "axios";
 import { Formik, Field, Form } from "formik";
 import { Button } from "../ui/button";
 import { BASE_URL, SIGN_UP } from "../config";
+import { Navigate } from "react-router-dom";
 
 const Signup = () => {
   return (
@@ -27,6 +28,7 @@ const Signup = () => {
             })
             .then((res) => {
               console.log(res.data.msg);
+              Navigate("/login");
             });
           resetForm({ values: { username: "", email: "", password: "" } });
         } catch (error) {
