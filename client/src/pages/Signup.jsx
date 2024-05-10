@@ -3,7 +3,7 @@ import axios from "axios";
 import { Formik, Field, Form } from "formik";
 import { Button } from "../ui/button";
 import { BASE_URL, SIGN_UP } from "../config";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const Signup = () => {
   return (
@@ -16,9 +16,10 @@ const Signup = () => {
       onSubmit={(values, { resetForm }) => {
         try {
           let formData = new FormData();
-          formData.append("username", values.username);
-          formData.append("email", values.email);
-          formData.append("password", values.password);
+          const { username, email, password } = values;
+          formData.append("username", username);
+          formData.append("email", email);
+          formData.append("password", password);
           axios
             .post(`${BASE_URL}/${SIGN_UP}`, formData, {
               headers: {
@@ -29,15 +30,22 @@ const Signup = () => {
             .then((res) => {
               console.log(res.data.msg);
               Navigate("/login");
+            })
+            .catch((err) => {
+              console.log("error", err.message);
             });
+          Navigate("/login");
+
           resetForm({ values: { username: "", email: "", password: "" } });
         } catch (error) {
-          console.log(error);
+          console.log("error", error.message);
         }
       }}
     >
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+        <div className="flex flex-col items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+          <Link to="/login">Back</Link>
+
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
               Sign up
@@ -53,9 +61,7 @@ const Signup = () => {
                     <Field
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="text"
-                      id="Username"
                       name="username"
-                      placeholder="Jane"
                     />
                   </div>
                 </div>
@@ -79,7 +85,7 @@ const Signup = () => {
                   </label>
                   <Field
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                    type="text"
+                    type="password"
                     name="password"
                     placeholder="Password"
                   />

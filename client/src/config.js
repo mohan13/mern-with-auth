@@ -1,5 +1,5 @@
 const BASE_URL = String(import.meta.env.VITE_BASE_URL);
-const SIGN_UP = String(import.meta.env.VITE_SIGN_UP);
+const SIGN_UP = String(import.meta.env.VITE_SIGNUP_ENDPOINT);
 const LOGIN = String(import.meta.env.VITE_LOGIN_ENDPOINT);
 const LOGOUT = String(import.meta.env.VITE_LOGOUT_ENDPOINT);
 const ADDBLOG = String(import.meta.env.VITE_ADDBLOG_ENDPOINT);

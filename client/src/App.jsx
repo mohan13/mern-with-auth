@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navbar } from "./components/navlinks/navbar";
 import { Outlet } from "react-router-dom";
-import Login from "./pages/Login";
 
 function App() {
   const { token } = useSelector((state) => state);
@@ -31,7 +30,7 @@ function App() {
         ) : (
           <Navbar />
         )}
-        {token ? <Outlet /> : <Login />}
+        <Outlet />
       </div>
     </div>
   );
