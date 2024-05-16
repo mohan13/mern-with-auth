@@ -111,13 +111,10 @@ export const signup = (formData) => {
             "Content-Type": "application/json; charset=utf-8",
           },
         })
-        .then((res) => {
-          window.location.pathname = "/login";
+        .then(() => {
           dispatch({
             type: "SUCCESS_MESSAGE",
           });
-
-          return res.data;
         });
     } catch (error) {
       dispatch({ type: "FAILED_MESSAGE", payload: error.response.data.msg });
@@ -138,18 +135,11 @@ export const login = (formData) => {
           const user = res.data;
           const token = user.token;
           dispatch({ type: "SET_TOKEN", payload: token });
-          dispatch({
-            type: "SUCCESS_MESSAGE",
-          });
 
           saveToken(token);
-
           if (token) {
             dispatch({ type: "USER_INFO", payload: user.user.username });
-
-            window.location.pathname = "/dashboard";
           }
-          return res.data;
         });
     } catch (error) {
       dispatch({ type: "FAILED_MESSAGE", payload: error.response.data.msg });
@@ -171,6 +161,7 @@ export const logout = () => {
           clearToken();
           dispatch({ type: "SET_TOKEN", payload: null });
           dispatch({ type: "USER_INFO", payload: null });
+
           window.location.pathname = "/login";
         });
     } catch (error) {

@@ -7,7 +7,7 @@ export const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) {
+    if (token === null) {
       navigate("/login", { replace: true });
     }
   }, [navigate, token]);

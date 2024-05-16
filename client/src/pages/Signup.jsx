@@ -1,11 +1,19 @@
 import { Formik, Field, Form } from "formik";
 import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../redux/apiAction";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const success = useSelector((state) => state.api.success);
+  const error = useSelector((state) => state.api.error);
+
+  if (success) {
+    return navigate("/login");
+  }
+
   return (
     <Formik
       initialValues={{
@@ -79,6 +87,9 @@ const Signup = () => {
               <Button type="submit" className="mt-3">
                 Submit
               </Button>
+              {error ? (
+                <div className="text-red-500 font-medium font-sm ">{error}</div>
+              ) : null}
             </Form>
           </div>
         </div>

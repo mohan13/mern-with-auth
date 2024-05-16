@@ -2,16 +2,19 @@ import { Formik, Field, Form } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/apiAction";
 import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const error = useSelector((state) => state.api.error);
-  const success = useSelector((state) => state.api.success);
-  if (success) {
-    alert("Successful!");
+  const token = useSelector((state) => state.api.token);
+
+  if (token) {
+    return navigate("/dashboard");
   }
+
   return (
     <Formik
       initialValues={{

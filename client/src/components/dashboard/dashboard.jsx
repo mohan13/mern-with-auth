@@ -9,10 +9,15 @@ export const Dashboard = () => {
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.api.blogs);
   const loading = useSelector((state) => state.api.isLoading);
+  const token = useSelector((state) => state.api.token);
 
   useEffect(() => {
-    dispatch(fetchBlogs());
-  }, [dispatch]);
+    if (token) {
+      dispatch(fetchBlogs());
+    }
+  }, [dispatch, token]);
+
+  console.log(token);
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-4">

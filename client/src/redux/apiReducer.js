@@ -31,7 +31,7 @@ const apiReducer = (state = initialState, action) => {
       }
 
     case "SET_TOKEN":
-      return { ...state, token: action.payload };
+      return { ...state, token: action.payload, success: true };
 
     case "FAILED_MESSAGE":
       return { ...state, error: action.payload, isLoading: false };

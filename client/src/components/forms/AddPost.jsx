@@ -5,6 +5,7 @@ import Input from "../../ui/input";
 import Textarea from "../../ui/description";
 import { useDispatch, useSelector } from "react-redux";
 import { writeBlog } from "../../redux/apiAction";
+import { ErrrorMessage } from "../../ui/errrorMessage";
 
 // export const convertToBase64 = (file) => {
 //   return new Promise((resolve, reject) => {
@@ -21,11 +22,7 @@ import { writeBlog } from "../../redux/apiAction";
 
 export const AddPostForm = () => {
   const dispatch = useDispatch();
-
-  const success = useSelector((state) => state.api.success);
-  if (success) {
-    alert(`Successful !!`);
-  }
+  const error = useSelector((state) => state.api.error);
 
   return (
     <div className="bg-white dark:bg-gray-900">
@@ -87,12 +84,11 @@ export const AddPostForm = () => {
                 //   reader.readAsDataURL(e.target.files[0]);
                 // }}
               />
-
               <Textarea name="description" label="Write description here..." />
-
               <Button type="submit">
                 {isSubmitting === true ? "Submitting" : "Submit"}
               </Button>
+              {error && <ErrrorMessage error={error} />}{" "}
             </Form>
           )}
         </Formik>
