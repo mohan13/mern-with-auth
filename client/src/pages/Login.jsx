@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/apiAction";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.api.error);
-
-  if (error) {
-    return <div>{error}</div>;
+  const success = useSelector((state) => state.api.success);
+  if (success) {
+    alert("Successful!");
   }
-
   return (
     <Formik
       initialValues={{
@@ -23,7 +23,6 @@ const Login = () => {
           let formData = new FormData();
           formData.append("email", values.email);
           formData.append("password", values.password);
-
           dispatch(login(formData));
           resetForm({ values: { email: "", password: "" } });
         } catch (error) {
@@ -71,11 +70,15 @@ const Login = () => {
                     type="text"
                     name="password"
                     placeholder="Password"
-                    autocomplete="true"
+                    autoComplete="true"
                   />
                 </div>
               </div>
-
+              {error ? (
+                <div className="text-red-700 text-sm font-semibold">
+                  {error}
+                </div>
+              ) : null}
               <Button className="mt-2" size="sm" color="default" type="submit">
                 Submit
               </Button>

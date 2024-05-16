@@ -70,9 +70,9 @@ export const Dashboard = () => {
                   </tr>
                 </thead>
                 {loading ? (
-                  <div className="divide-y divide-gray-200 bg-white">
-                    Loading....
-                  </div>
+                  <tbody className="divide-y divide-gray-200 bg-white">
+                    <tr>Loading....</tr>{" "}
+                  </tbody>
                 ) : (
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {Object.values(blogs)?.map((item, index) => {
@@ -109,7 +109,7 @@ export const Dashboard = () => {
                             {formatDateTime(item.createdAt)}
                           </td>
                           <td className="whitespace-nowrap px-4 py-4 text-right text-sm font-medium">
-                            <td className="flex gap-2">
+                            <div className="flex gap-2">
                               <button
                                 className="cursor-pointer"
                                 onClick={() => dispatch(deleteBlog(item._id))}
@@ -132,7 +132,7 @@ export const Dashboard = () => {
                               >
                                 Edit
                               </div>
-                            </td>
+                            </div>
                           </td>
                         </tr>
                       );

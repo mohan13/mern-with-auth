@@ -8,6 +8,7 @@ import {
   VIEW_ALL_BLOGS,
   DELETE_BLOG,
   VIEW_DETAILS_BLOGS,
+  SIGN_UP,
 } from "../config";
 // const BASE_URL = "http://localhost:4000/api";
 
@@ -30,7 +31,6 @@ export const deleteBlog = (id) => {
       await axios.delete(`${BASE_URL}/${DELETE_BLOG}/${id}`).then(() => {
         dispatch({
           type: "SUCCESS_MESSAGE",
-          payload: "Successfully deleted !",
         });
 
         location.reload();
@@ -70,8 +70,8 @@ export const updateBlogs = (id, formData) => {
             "Content-Type": "multipart/form-data",
           },
         })
-        .then((res) => {
-          dispatch({ type: "SUCCESS_MESSAGE", payload: res.data.msg });
+        .then(() => {
+          dispatch({ type: "SUCCESS_MESSAGE" });
         });
     } catch (error) {
       dispatch({
@@ -91,14 +91,36 @@ export const writeBlog = (formData) => {
             "Content-Type": "multipart/form-data",
           },
         })
-        .then((res) => {
+        .then(() => {
           dispatch({
             type: "SUCCESS_MESSAGE",
-            payload: res.data.msg,
           });
         });
     } catch (error) {
       dispatch({ type: "FAILED_MESSAGE", payload: "Blog post failed !" });
+    }
+  };
+};
+
+export const signup = (formData) => {
+  return async (dispatch) => {
+    try {
+      await axios
+        .post(`${BASE_URL}/${SIGN_UP}`, formData, {
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+          },
+        })
+        .then((res) => {
+          window.location.pathname = "/login";
+          dispatch({
+            type: "SUCCESS_MESSAGE",
+          });
+
+          return res.data;
+        });
+    } catch (error) {
+      dispatch({ type: "FAILED_MESSAGE", payload: error.response.data.msg });
     }
   };
 };
@@ -116,6 +138,10 @@ export const login = (formData) => {
           const user = res.data;
           const token = user.token;
           dispatch({ type: "SET_TOKEN", payload: token });
+          dispatch({
+            type: "SUCCESS_MESSAGE",
+          });
+
           saveToken(token);
 
           if (token) {

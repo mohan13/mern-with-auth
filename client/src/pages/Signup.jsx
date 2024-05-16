@@ -1,11 +1,11 @@
-import axios from "axios";
-
 import { Formik, Field, Form } from "formik";
 import { Button } from "../ui/button";
-import { BASE_URL, SIGN_UP } from "../config";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signup } from "../redux/apiAction";
 
 const Signup = () => {
+  const dispatch = useDispatch();
   return (
     <Formik
       initialValues={{
@@ -20,22 +20,8 @@ const Signup = () => {
           formData.append("username", username);
           formData.append("email", email);
           formData.append("password", password);
-          axios
-            .post(`${BASE_URL}/${SIGN_UP}`, formData, {
-              headers: {
-                "Content-Type": "application/json; charset=utf-8",
-                //add headers when data is not accepted by backend
-              },
-            })
-            .then((res) => {
-              console.log(res.data.msg);
-              Navigate("/login");
-              resetForm({ values: { username: "", email: "", password: "" } });
-            })
-            .catch((err) => {
-              console.log("error", err.message);
-            });
-          Navigate("/login");
+          dispatch(signup(formData));
+          resetForm({ values: { username: "", email: "", password: "" } });
         } catch (error) {
           console.log("error", error.message);
         }

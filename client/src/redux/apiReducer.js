@@ -3,7 +3,7 @@ const initialState = {
   blogDetails: {},
   isLoading: false,
   error: null,
-  success: null,
+  success: false,
   token: null,
   userInfo: null,
 };
@@ -37,7 +37,7 @@ const apiReducer = (state = initialState, action) => {
       return { ...state, error: action.payload, isLoading: false };
 
     case "SUCCESS_MESSAGE":
-      return { ...state, isLoading: false };
+      return { ...state, success: true };
 
     default:
       return state;

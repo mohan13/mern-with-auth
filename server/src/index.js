@@ -26,7 +26,7 @@ app.listen(PORT, () => {
 });
 
 const corsOptions = {
-  origin: WEB_URL,
+  origin: "*",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };

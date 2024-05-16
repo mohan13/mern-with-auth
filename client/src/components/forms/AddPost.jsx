@@ -24,9 +24,8 @@ export const AddPostForm = () => {
 
   const success = useSelector((state) => state.api.success);
   if (success) {
-    return alert(success);
+    alert(`Successful !!`);
   }
-  console.log(success);
 
   return (
     <div className="bg-white dark:bg-gray-900">
