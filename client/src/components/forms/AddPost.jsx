@@ -3,9 +3,8 @@ import Select from "../../ui/select";
 import { Button } from "../../ui/button";
 import Input from "../../ui/input";
 import Textarea from "../../ui/description";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { writeBlog } from "../../redux/apiAction";
-import { toast } from "react-toastify";
 
 export const convertToBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -22,17 +21,6 @@ export const convertToBase64 = (file) => {
 
 export const AddPostForm = () => {
   const dispatch = useDispatch();
-  const { success } = useSelector((state) => state);
-
-  const handleBlogImage = async (e, setFieldValue) => {
-    const file = e.target.files[0];
-    if (file?.size / 1024 / 1024 < 2) {
-      const base64 = await convertToBase64(file);
-      setFieldValue("blogImage", base64);
-    } else {
-      toast.error("Image size must be of 2MB or less");
-    }
-  };
 
   return (
     <div className="bg-white dark:bg-gray-900">

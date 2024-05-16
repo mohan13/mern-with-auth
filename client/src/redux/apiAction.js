@@ -115,10 +115,7 @@ export const login = (formData) => {
         .then((res) => {
           const user = res.data;
           const token = user.token;
-          console.log("token", token);
-
           dispatch({ type: "SET_TOKEN", payload: token });
-
           saveToken(token);
 
           if (token) {

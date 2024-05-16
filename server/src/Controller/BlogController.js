@@ -34,8 +34,7 @@ const updateBlog = asyncHandler(async (req, res) => {
 });
 
 const PostBlogs = asyncHandler(async (req, res) => {
-  const { title, description, category } = req.body;
-
+  const { title, description, category, owner } = req.body;
   const imageLocalPath = req.file.path;
 
   if (!imageLocalPath) {
@@ -48,6 +47,7 @@ const PostBlogs = asyncHandler(async (req, res) => {
     title,
     description,
     category,
+    owner,
     images: blogImage.url,
   });
 
