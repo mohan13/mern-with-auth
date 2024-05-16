@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 export const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { blogs, isLoading } = useSelector((state) => state.api);
+  const blogs = useSelector((state) => state.api.blogs);
+  const isLoading = useSelector((state) => state.api.isLoading);
   useEffect(() => {
     dispatch(fetchBlogs());
   }, [dispatch]);
