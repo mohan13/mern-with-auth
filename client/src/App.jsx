@@ -4,11 +4,6 @@ import { Outlet } from "react-router-dom";
 
 function App() {
   const token = useSelector((state) => state.api.token);
-  const loadiing = useSelector((state) => state.api.isLoading);
-
-  if (loadiing) {
-    return <div>Loading...</div>;
-  }
   return (
     <div>
       <div className="mx-10 my-5">

@@ -29,7 +29,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // const { userInfo, token } = useSelector((state) => state);
-  const userInfo = useSelector((state) => state.userInfo);
+  const userInfo = useSelector((state) => state.api.userInfo);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

@@ -30,13 +30,12 @@ const Signup = () => {
             .then((res) => {
               console.log(res.data.msg);
               Navigate("/login");
+              resetForm({ values: { username: "", email: "", password: "" } });
             })
             .catch((err) => {
               console.log("error", err.message);
             });
           Navigate("/login");
-
-          resetForm({ values: { username: "", email: "", password: "" } });
         } catch (error) {
           console.log("error", error.message);
         }

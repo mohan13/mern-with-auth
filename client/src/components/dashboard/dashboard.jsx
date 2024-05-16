@@ -8,6 +8,7 @@ export const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.api.blogs);
+  const loading = useSelector((state) => state.api.isLoading);
 
   useEffect(() => {
     dispatch(fetchBlogs());
@@ -68,75 +69,76 @@ export const Dashboard = () => {
                     </th>
                   </tr>
                 </thead>
-                {/* {isLoading ? (
+                {loading ? (
                   <div className="divide-y divide-gray-200 bg-white">
                     Loading....
                   </div>
-                ) : ( */}
-                <tbody className="divide-y divide-gray-200 bg-white">
-                  {Object.values(blogs)?.map((item, index) => {
-                    return (
-                      <tr key={item._id}>
-                        <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                          {index + 1}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-4">
-                          <div className="flex items-center">
-                            <div className="h-10 w-10 flex-shrink-0">
-                              <img
-                                className="h-10 w-10 rounded-full object-cover"
-                                src={item.images}
-                                alt={item.title}
-                              />
+                ) : (
+                  <tbody className="divide-y divide-gray-200 bg-white">
+                    {Object.values(blogs)?.map((item, index) => {
+                      return (
+                        <tr key={item._id}>
+                          <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                            {index + 1}
+                          </td>
+                          <td className="whitespace-nowrap px-4 py-4">
+                            <div className="flex items-center">
+                              <div className="h-10 w-10 flex-shrink-0">
+                                <img
+                                  className="h-10 w-10 rounded-full object-cover"
+                                  src={item.images}
+                                  alt={item.title}
+                                />
+                              </div>
+                              <div className="ml-4">
+                                <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                                  {item.title}
+                                </td>
+                              </div>
                             </div>
-                            <div className="ml-4">
-                              <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                                {item.title}
-                              </td>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                          {item.category}
-                        </td>
+                          </td>
+                          <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                            {item.category}
+                          </td>
 
-                        <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                          {item.description}
-                        </td>
+                          <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                            {item.description}
+                          </td>
 
-                        <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                          {formatDateTime(item.createdAt)}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-4 text-right text-sm font-medium">
-                          <div className="flex gap-2">
-                            <button
-                              className="cursor-pointer"
-                              onClick={() => dispatch(deleteBlog(item._id))}
-                            >
-                              Delete
-                            </button>
-                            <div
-                              className="cursor-pointer"
-                              onClick={() =>
-                                navigate(`/details/${String(item._id)}`)
-                              }
-                            >
-                              View
-                            </div>
-                            <div
-                              className="cursor-pointer"
-                              onClick={() =>
-                                navigate(`/editpost/${String(item._id)}`)
-                              }
-                            >
-                              Edit
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
+                          <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
+                            {formatDateTime(item.createdAt)}
+                          </td>
+                          <td className="whitespace-nowrap px-4 py-4 text-right text-sm font-medium">
+                            <td className="flex gap-2">
+                              <button
+                                className="cursor-pointer"
+                                onClick={() => dispatch(deleteBlog(item._id))}
+                              >
+                                Delete
+                              </button>
+                              <div
+                                className="cursor-pointer"
+                                onClick={() =>
+                                  navigate(`/details/${String(item._id)}`)
+                                }
+                              >
+                                View
+                              </div>
+                              <div
+                                className="cursor-pointer"
+                                onClick={() =>
+                                  navigate(`/editpost/${String(item._id)}`)
+                                }
+                              >
+                                Edit
+                              </div>
+                            </td>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                )}
               </table>
             </div>
           </div>

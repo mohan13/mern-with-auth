@@ -71,6 +71,7 @@ const Login = () => {
                     type="text"
                     name="password"
                     placeholder="Password"
+                    autocomplete="true"
                   />
                 </div>
               </div>

@@ -3,24 +3,30 @@ import Select from "../../ui/select";
 import { Button } from "../../ui/button";
 import Input from "../../ui/input";
 import Textarea from "../../ui/description";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { writeBlog } from "../../redux/apiAction";
 
-export const convertToBase64 = (file) => {
-  return new Promise((resolve, reject) => {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
-    fileReader.onload = () => {
-      resolve(fileReader.result);
-    };
-    fileReader.onerror = (error) => {
-      reject(error);
-    };
-  });
-};
+// export const convertToBase64 = (file) => {
+//   return new Promise((resolve, reject) => {
+//     const fileReader = new FileReader();
+//     fileReader.readAsDataURL(file);
+//     fileReader.onload = () => {
+//       resolve(fileReader.result);
+//     };
+//     fileReader.onerror = (error) => {
+//       reject(error);
+//     };
+//   });
+// };
 
 export const AddPostForm = () => {
   const dispatch = useDispatch();
+
+  const success = useSelector((state) => state.api.success);
+  if (success) {
+    return alert(success);
+  }
+  console.log(success);
 
   return (
     <div className="bg-white dark:bg-gray-900">
@@ -58,7 +64,7 @@ export const AddPostForm = () => {
             }
           }}
         >
-          {({ setFieldValue }) => (
+          {({ setFieldValue, isSubmitting }) => (
             <Form className="flex flex-col gap-4 mb-4 ">
               <Input name="title" type="text" label="Write blog title" />
               <Select
@@ -85,7 +91,9 @@ export const AddPostForm = () => {
 
               <Textarea name="description" label="Write description here..." />
 
-              <Button type="submit">Submit</Button>
+              <Button type="submit">
+                {isSubmitting === true ? "Submitting" : "Submit"}
+              </Button>
             </Form>
           )}
         </Formik>
