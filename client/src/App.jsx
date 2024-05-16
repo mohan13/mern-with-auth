@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { Navbar } from "./components/navlinks/navbar";
 import { Outlet } from "react-router-dom";
-import Login from "./pages/Login";
 
 function App() {
-  const { token } = useSelector((state) => state);
+  const token = useSelector((state) => state.api.token, shallowEqual);
 
+  console.log("app", token);
   return (
     <div>
       <div className="mx-10 my-5">
@@ -18,7 +18,9 @@ function App() {
         ) : (
           <Navbar />
         )}
-        {token ? <Outlet /> : <Login />}
+        {/* {token ? <Outlet /> : <Login />} */}
+
+        <Outlet />
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 export const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { blogs, isLoading } = useSelector((state) => state);
+  const { blogs, isLoading } = useSelector((state) => state.api);
   useEffect(() => {
     dispatch(fetchBlogs());
   }, [dispatch]);
@@ -68,9 +68,9 @@ export const Dashboard = () => {
                   </tr>
                 </thead>
                 {isLoading ? (
-                  <tbody className="divide-y divide-gray-200 bg-white">
-                    <tr>Loading....</tr>
-                  </tbody>
+                  <div className="divide-y divide-gray-200 bg-white">
+                    Loading....
+                  </div>
                 ) : (
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {Object.values(blogs)?.map((item, index) => {

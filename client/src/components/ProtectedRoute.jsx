@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const ProtectedRoute = ({ children }) => {
-  const { token } = useSelector((state) => state);
+  const token = useSelector((state) => state.api.token, shallowEqual);
   const navigate = useNavigate();
-  console.log(token);
+  console.log("pro", token);
 
   useEffect(() => {
     if (!token) {

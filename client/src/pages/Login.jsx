@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state);
+  const error = useSelector((state) => state.api.error);
 
   if (error) {
     return <div>{error}</div>;

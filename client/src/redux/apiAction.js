@@ -115,10 +115,12 @@ export const login = (formData) => {
         .then((res) => {
           const user = res.data;
           const token = user.token;
+          console.log("token", token);
+
+          dispatch({ type: "SET_TOKEN", payload: token });
 
           saveToken(token);
 
-          dispatch({ type: "SET_TOKEN", payload: token });
           if (token) {
             dispatch({ type: "USER_INFO", payload: user.user.username });
 
