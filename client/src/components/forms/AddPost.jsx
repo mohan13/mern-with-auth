@@ -6,6 +6,7 @@ import Textarea from "../../ui/description";
 import { useDispatch, useSelector } from "react-redux";
 import { writeBlog } from "../../redux/apiAction";
 import { ErrrorMessage } from "../../ui/errrorMessage";
+import { ToastContainer, toast } from "react-toastify";
 
 // export const convertToBase64 = (file) => {
 //   return new Promise((resolve, reject) => {
@@ -39,6 +40,7 @@ export const AddPostForm = () => {
             images: "",
           }}
           onSubmit={(values, { resetForm }) => {
+            toast.success("Blog posted !");
             try {
               let formData = new FormData();
               formData.append("title", values.title);
@@ -93,6 +95,7 @@ export const AddPostForm = () => {
           )}
         </Formik>
       </div>
+      <ToastContainer />
     </div>
   );
 };

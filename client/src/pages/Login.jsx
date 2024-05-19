@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/apiAction";
 import { Button } from "../ui/button";
 import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
@@ -13,6 +14,9 @@ const Login = () => {
 
   if (token) {
     return navigate("/dashboard");
+  }
+  if (error) {
+    toast.error(error);
   }
 
   return (
@@ -27,6 +31,7 @@ const Login = () => {
           formData.append("email", values.email);
           formData.append("password", values.password);
           dispatch(login(formData));
+          toast.success("User logged in !");
           resetForm({ values: { email: "", password: "" } });
         } catch (error) {
           console.log(error);
@@ -97,6 +102,7 @@ const Login = () => {
             </Form>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </Formik>
   );

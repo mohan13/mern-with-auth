@@ -6,6 +6,7 @@ import Input from "../../ui/input";
 import Textarea from "../../ui/description";
 import { useDispatch } from "react-redux";
 import { updateBlogs } from "../../redux/apiAction";
+import { ToastContainer, toast } from "react-toastify";
 export const EditBlogForm = ({ blogsData }) => {
   const dispatch = useDispatch();
 
@@ -19,6 +20,7 @@ export const EditBlogForm = ({ blogsData }) => {
           initialValues={blogsData[0]}
           enableReinitialize // to refresh initial data
           onSubmit={(values, { resetForm }) => {
+            toast.success("Blog updated");
             try {
               let formData = new FormData();
               formData.append("title", values.title);
@@ -48,6 +50,7 @@ export const EditBlogForm = ({ blogsData }) => {
           )}
         </Formik>
       </div>
+      <ToastContainer />
     </div>
   );
 };

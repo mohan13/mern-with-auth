@@ -8,6 +8,7 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import { logout } from "../../redux/apiAction";
+import { ToastContainer, toast } from "react-toastify";
 
 const menuItems = [
   {
@@ -30,6 +31,11 @@ export const Navbar = () => {
   const dispatch = useDispatch();
   // const { userInfo, token } = useSelector((state) => state);
   const userInfo = useSelector((state) => state.api.userInfo);
+
+  const userLogout = () => {
+    dispatch(logout());
+    toast.success("User logout !");
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -76,9 +82,7 @@ export const Navbar = () => {
                 <div>{userInfo}</div>
               </DropdownTrigger>
               <DropdownMenu>
-                <DropdownItem onClick={() => dispatch(logout())}>
-                  Log Out
-                </DropdownItem>
+                <DropdownItem onClick={userLogout}>Log Out</DropdownItem>
                 <DropdownItem>Change Password</DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -166,6 +170,7 @@ export const Navbar = () => {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };
