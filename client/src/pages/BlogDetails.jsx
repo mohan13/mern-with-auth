@@ -6,10 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { viewDetails } from "../redux/apiAction";
 import { useEffect } from "react";
 const BlogDetails = () => {
-  const { id } = useParams();
-  const { error, blogDetails, isLoading } = useSelector((state) => state);
-
   const dispatch = useDispatch();
+
+  const { id } = useParams();
+  const error = useSelector((state) => state.api.error);
+  const blogDetails = useSelector((state) => state.api.blogDetails);
+  const isLoading = useSelector((state) => state.api.isLoading);
 
   useEffect(() => {
     dispatch(viewDetails(id));
