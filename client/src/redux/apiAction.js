@@ -10,6 +10,7 @@ import {
   VIEW_DETAILS_BLOGS,
   SIGN_UP,
 } from "../config";
+import { toast } from "react-toastify";
 // const BASE_URL = "http://localhost:4000/api";
 
 export const fetchBlogs = () => {
@@ -111,12 +112,11 @@ export const signup = (formData) => {
             "Content-Type": "application/json; charset=utf-8",
           },
         })
-        .then(() => {
-          dispatch({
-            type: "SUCCESS_MESSAGE",
-          });
+        .then((res) => {
+          toast.success(res.data.msg);
         });
     } catch (error) {
+      toast.error(error.response.data.msg);
       dispatch({ type: "FAILED_MESSAGE", payload: error.response.data.msg });
     }
   };
@@ -135,7 +135,7 @@ export const login = (formData) => {
           const user = res.data;
           const token = user.token;
           dispatch({ type: "SET_TOKEN", payload: token });
-
+          console.log(user);
           saveToken(token);
           if (token) {
             dispatch({ type: "USER_INFO", payload: user.user.username });
@@ -157,11 +157,11 @@ export const logout = () => {
             "Content-Type": "application/json; charset=utf-8",
           },
         })
-        .then(() => {
+        .then((res) => {
+          console.log(res.data.msg);
           clearToken();
           dispatch({ type: "SET_TOKEN", payload: null });
           dispatch({ type: "USER_INFO", payload: null });
-
           window.location.pathname = "/login";
         });
     } catch (error) {

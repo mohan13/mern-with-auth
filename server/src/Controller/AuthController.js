@@ -20,7 +20,7 @@ const Signup = asyncHandler(async (req, res) => {
   const { email, password, username } = req.body;
 
   if ([email, username, password].some((field) => field?.trim() === "")) {
-    return res.json({ msg: "All fields are required" });
+    return res.status(401).json({ msg: "All fields are required" });
   }
 
   //existing user

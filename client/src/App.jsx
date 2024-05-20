@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import { Navbar } from "./components/navlinks/navbar";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const token = useSelector((state) => state.api.token);
@@ -20,6 +22,7 @@ function App() {
 
         <Outlet />
       </div>
+      <ToastContainer />
     </div>
   );
 }

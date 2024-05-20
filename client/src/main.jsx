@@ -9,7 +9,6 @@ import { store, persistor } from "./redux/store.js";
 // import ContactPage from "./pages/Contact-Us/index.jsx";
 import { PersistGate } from "redux-persist/integration/react";
 import Login from "./pages/Login.jsx";
-import Signup from "./pages/Signup.jsx";
 import AddPost from "./pages/AddPost.jsx";
 import EditPost from "./pages/EditPost.jsx";
 import Dasbhoardpage from "./pages/Dasbhoard.jsx";
@@ -17,6 +16,7 @@ import Dasbhoardpage from "./pages/Dasbhoard.jsx";
 import BlogDetails from "./pages/BlogDetails.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
+import SignupPage from "./pages/Signup.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/signup",
-        element: <Signup />,
+        element: <SignupPage />,
       },
 
       {
