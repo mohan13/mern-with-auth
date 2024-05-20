@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,9 +13,11 @@ const Login = () => {
   const error = useSelector((state) => state.api.error);
   const token = useSelector((state) => state.api.token);
 
-  if (token) {
-    return navigate("/dashboard");
-  }
+  useEffect(() => {
+    if (token) {
+      return navigate("/dashboard");
+    }
+  }, [token]);
   if (error) {
     toast.error(error);
   }

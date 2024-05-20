@@ -26,7 +26,7 @@ export const Dashboard = () => {
   };
 
   const searchOnTitle = (array) => {
-    return array?.filter((item) =>
+    return Object.values(array)?.filter((item) =>
       item.title.toLowerCase().includes(blogTitle.toLocaleLowerCase()),
     );
   };

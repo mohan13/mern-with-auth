@@ -123,7 +123,7 @@ const LogOut = asyncHandler(async (req, res) => {
     .status(200)
     .clearCookie("accessToken", options)
     .clearCookie("refreshToken", options)
-    .json({ msg: "userLogOut" });
+    .json({ msg: "User logout!!" });
 });
 
 const changeCurrentPassword = asyncHandler(async (req, res) => {

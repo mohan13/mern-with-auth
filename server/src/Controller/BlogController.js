@@ -51,7 +51,7 @@ const PostBlogs = asyncHandler(async (req, res) => {
     images: blogImage.url,
   });
 
-  return res.status(200).json({ msg: "blog posted successfully ", blogs });
+  return res.status(200).json({ msg: "Posted successfully ", blogs });
 });
 
 module.exports = { PostBlogs, getBlogs, deleteBlog, blogDetails, updateBlog };

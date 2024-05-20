@@ -5,8 +5,7 @@ import Input from "../../ui/input";
 import Textarea from "../../ui/description";
 import { useDispatch, useSelector } from "react-redux";
 import { writeBlog } from "../../redux/apiAction";
-import { ErrrorMessage } from "../../ui/errrorMessage";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 // export const convertToBase64 = (file) => {
 //   return new Promise((resolve, reject) => {
@@ -24,6 +23,9 @@ import { ToastContainer, toast } from "react-toastify";
 export const AddPostForm = () => {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.api.error);
+  if (error) {
+    toast.error(error);
+  }
 
   return (
     <div className="bg-white dark:bg-gray-900">
@@ -40,7 +42,6 @@ export const AddPostForm = () => {
             images: "",
           }}
           onSubmit={(values, { resetForm }) => {
-            toast.success("Blog posted !");
             try {
               let formData = new FormData();
               formData.append("title", values.title);
@@ -62,7 +63,7 @@ export const AddPostForm = () => {
             }
           }}
         >
-          {({ setFieldValue, isSubmitting }) => (
+          {({ setFieldValue }) => (
             <Form className="flex flex-col gap-4 mb-4 ">
               <Input name="title" type="text" label="Write blog title" />
               <Select
@@ -71,31 +72,16 @@ export const AddPostForm = () => {
                 label="Category"
               />
               <input
-                // className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 type="file"
                 name="images"
                 onChange={(e) => setFieldValue("images", e.target.files[0])}
-                // onChange={(e) => {
-                //   const reader = new FileReader();
-                //   reader.onload = () => {
-                //     if (reader.readyState == 2) {
-                //       console.log("inside ready state");
-                //       setFieldValue("images", reader.result);
-                //     }
-                //   };
-                //   reader.readAsDataURL(e.target.files[0]);
-                // }}
               />
               <Textarea name="description" label="Write description here..." />
-              <Button type="submit">
-                {isSubmitting === true ? "Submitting" : "Submit"}
-              </Button>
-              {error && <ErrrorMessage error={error} />}{" "}
+              <Button type="submit">Submit</Button>
             </Form>
           )}
         </Formik>
       </div>
-      <ToastContainer />
     </div>
   );
 };

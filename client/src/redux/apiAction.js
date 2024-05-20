@@ -11,7 +11,6 @@ import {
   SIGN_UP,
 } from "../config";
 import { toast } from "react-toastify";
-// const BASE_URL = "http://localhost:4000/api";
 
 export const fetchBlogs = () => {
   return async (dispatch) => {
@@ -92,10 +91,8 @@ export const writeBlog = (formData) => {
             "Content-Type": "multipart/form-data",
           },
         })
-        .then(() => {
-          dispatch({
-            type: "SUCCESS_MESSAGE",
-          });
+        .then((res) => {
+          toast.success(res.data.msg);
         });
     } catch (error) {
       dispatch({ type: "FAILED_MESSAGE", payload: "Blog post failed !" });
@@ -135,7 +132,7 @@ export const login = (formData) => {
           const user = res.data;
           const token = user.token;
           dispatch({ type: "SET_TOKEN", payload: token });
-          console.log(user);
+          toast.success(user.msg);
           saveToken(token);
           if (token) {
             dispatch({ type: "USER_INFO", payload: user.user.username });
@@ -157,8 +154,7 @@ export const logout = () => {
             "Content-Type": "application/json; charset=utf-8",
           },
         })
-        .then((res) => {
-          console.log(res.data.msg);
+        .then(() => {
           clearToken();
           dispatch({ type: "SET_TOKEN", payload: null });
           dispatch({ type: "USER_INFO", payload: null });
