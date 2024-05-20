@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const authRoute = require("./Routes/AuthRoute");
 const blogsRoute = require("./Routes/BlogRoute");
+const swaggerUi = require("swagger-ui-express");
 const cors = require("cors");
+const specs = require("./swaggerDef");
 const app = express();
 
 app.use(cookieParser());
@@ -25,8 +27,10 @@ app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
 
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(specs));
+
 const corsOptions = {
-  origin: WEB_URL,
+  origin: "*",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };

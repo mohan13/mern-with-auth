@@ -4,14 +4,12 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Your API Documentation",
+      title: "REST API Docs",
       version: "1.0.0",
-      description: "Description of your API",
     },
     servers: [
       {
-        url: "http://localhost:4000", // Replace with your server URL
-        description: "Development server",
+        url: "http://localhost:4001",
       },
     ],
   },

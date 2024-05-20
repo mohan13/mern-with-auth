@@ -1,6 +1,8 @@
 const Blog = require("../Models/BlogsModel");
+const User = require("../Models/UserModel");
 const asyncHandler = require("../util/asyncHandler");
 const { uploadOnCloudinary } = require("../util/cloudinaryConfig");
+const user = new User({});
 
 const getBlogs = asyncHandler(async (_, res) => {
   const data = await Blog.find();
@@ -47,8 +49,8 @@ const PostBlogs = asyncHandler(async (req, res) => {
     title,
     description,
     category,
-    owner,
     images: blogImage.url,
+    owner: user._id,
   });
 
   return res.status(200).json({ msg: "Posted successfully ", blogs });

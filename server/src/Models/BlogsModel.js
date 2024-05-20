@@ -8,12 +8,11 @@ const blogSchema = mongoose.Schema({
     required: true,
   },
   images: { type: String },
-
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
-
   createdAt: {
     type: Date,
     default: new Date(),
