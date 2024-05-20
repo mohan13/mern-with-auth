@@ -59,7 +59,7 @@ export const AddPostForm = () => {
                 },
               });
             } catch (error) {
-              console.log(error.message);
+              console.log("error", error.message);
             }
           }}
         >
@@ -77,6 +77,7 @@ export const AddPostForm = () => {
                 onChange={(e) => setFieldValue("images", e.target.files[0])}
               />
               <Textarea name="description" label="Write description here..." />
+
               <Button type="submit">Submit</Button>
             </Form>
           )}
