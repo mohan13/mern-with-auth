@@ -11,6 +11,10 @@ import { logout } from "../../redux/apiAction";
 
 const menuItems = [
   {
+    name: "Home",
+    href: "/",
+  },
+  {
     name: "Dashboard",
     href: "/dashboard",
   },
