@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js",
-    "swagger-autogen" :"node swaggerDef.js",
+    "swagger-autogen": "node swaggerDef.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "mohan gurung",
@@ -25,6 +25,7 @@
     "nodemon": "^3.1.0",
     "swagger-autogen": "^2.23.7",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.0",
+    "yaml": "^2.4.2"
   }
 }

@@ -5,6 +5,7 @@ import { formatDateTime } from "../../utils/getTimeDate";
 import { useNavigate } from "react-router-dom";
 import { Modal, ModalContent, useDisclosure } from "@nextui-org/modal";
 import { AddPostForm } from "../forms/AddPost";
+import HTMLReactParser from "html-react-parser/lib/index";
 
 export const Dashboard = () => {
   const [blogTitle, setBlogTitle] = useState("");
@@ -177,7 +178,7 @@ export const Dashboard = () => {
                           </td>
 
                           <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
-                            {item.description}
+                            {HTMLReactParser(item.description)}
                           </td>
 
                           <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">

@@ -26,7 +26,7 @@ const BlogDetails = () => {
           {error ? (
             <div className="px-4 py-8">{error}</div>
           ) : (
-            <Details blog={blogDetails} />
+            <Details post={blogDetails} />
           )}
         </>
       )}

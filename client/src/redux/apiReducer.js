@@ -1,5 +1,5 @@
 const initialState = {
-  blogs: {},
+  blogs: [],
   blogDetails: {},
   isLoading: false,
   error: null,

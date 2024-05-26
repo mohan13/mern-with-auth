@@ -17,12 +17,17 @@ import BlogDetails from "./pages/BlogDetails.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import SignupPage from "./pages/Signup.jsx";
+import Homepage from "./pages/Home.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "/",
+        element: <Homepage />,
+      },
       {
         path: "/login",
         element: <Login />,

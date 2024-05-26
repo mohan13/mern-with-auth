@@ -2,11 +2,12 @@ import { Form, Formik } from "formik";
 import Select from "../../ui/select";
 import { Button } from "../../ui/button";
 import Input from "../../ui/input";
-import Textarea from "../../ui/description";
+
 import { useDispatch, useSelector } from "react-redux";
 import { writeBlog } from "../../redux/apiAction";
 import { toast } from "react-toastify";
-
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 // export const convertToBase64 = (file) => {
 //   return new Promise((resolve, reject) => {
 //     const fileReader = new FileReader();
@@ -76,7 +77,19 @@ export const AddPostForm = () => {
                 name="images"
                 onChange={(e) => setFieldValue("images", e.target.files[0])}
               />
-              <Textarea name="description" label="Write description here..." />
+              {/* <ReactQuill
+                
+                onChange={(e) => setFieldValue("description", e.target.values)}
+              /> */}
+              <ReactQuill
+                theme="snow"
+                placeholder="Write something"
+                className="h-72 mb-12 "
+                required
+                name="description"
+                onChange={(value) => setFieldValue("description", value)}
+              />
+              {/* <Textarea name="description" label="Write description here..." /> */}
 
               <Button type="submit">Submit</Button>
             </Form>
