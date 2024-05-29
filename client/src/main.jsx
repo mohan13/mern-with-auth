@@ -59,7 +59,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/details/:id",
-        element: <BlogDetails />,
+        element: (
+          <ProtectedRoute>
+            <BlogDetails />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/editpost/:id",
