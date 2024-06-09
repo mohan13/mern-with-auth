@@ -13,8 +13,9 @@ const verifyJWT = asyncHandler(async (req, res, next) => {
     }
     const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
+    //_id came from model
     const user = await User.findById(decodedToken?._id).select(
-      "-password -refreshToken",
+      "-password -refreshToken", //select ignore selected things
     );
 
     if (!user) {
@@ -24,7 +25,7 @@ const verifyJWT = asyncHandler(async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    res.status(400).json({ msg: error?.message });
+    res.status(401).json({ msg: error?.message });
   }
 });
 

@@ -49,7 +49,6 @@ export const AddPostForm = () => {
               formData.append("description", values.description);
               formData.append("category", values.category);
               formData.append("images", values.images);
-
               dispatch(writeBlog(formData));
               resetForm({
                 values: {

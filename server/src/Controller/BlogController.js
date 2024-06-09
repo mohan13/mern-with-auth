@@ -2,10 +2,25 @@ const Blog = require("../Models/BlogsModel");
 const User = require("../Models/UserModel");
 const asyncHandler = require("../util/asyncHandler");
 const { uploadOnCloudinary } = require("../util/cloudinaryConfig");
-const user = new User({});
 
-const getBlogs = asyncHandler(async (_, res) => {
-  const data = await Blog.find();
+const getBlogs = asyncHandler(async (req, res) => {
+  const data = await Blog.aggregate([
+    {
+      $lookup: {
+        from: "users",
+        localField: "owner",
+        foreignField: "_id",
+        as: "user_details",
+      },
+    },
+    {
+      $addFields: {
+        auther_details: {
+          $arrayElemAt: ["$user_details", 0],
+        },
+      },
+    },
+  ]);
   return res.json({ msg: "All blogs here . . . ", data });
 });
 
@@ -35,9 +50,10 @@ const updateBlog = asyncHandler(async (req, res) => {
     .json({ msg: "blog updated successfully ", updatedBlog });
 });
 
-const PostBlogs = asyncHandler(async (req, res) => {
-  const { title, description, category, owner } = req.body;
+const createBlog = asyncHandler(async (req, res) => {
+  const { title, description, category } = req.body;
   const imageLocalPath = req.file.path;
+  const owner = req.user._id;
 
   if (!imageLocalPath) {
     return res.status(400).json({ msg: "No file uploaded", imageLocalPath });
@@ -50,10 +66,10 @@ const PostBlogs = asyncHandler(async (req, res) => {
     description,
     category,
     images: blogImage.url,
-    owner: user._id,
+    owner,
   });
 
   return res.status(200).json({ msg: "Posted successfully ", blogs });
 });
 
-module.exports = { PostBlogs, getBlogs, deleteBlog, blogDetails, updateBlog };
+module.exports = { createBlog, getBlogs, deleteBlog, blogDetails, updateBlog };

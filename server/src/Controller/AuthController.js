@@ -23,7 +23,7 @@ const Signup = asyncHandler(async (req, res) => {
     return res.status(401).json({ msg: "All fields are required" });
   }
 
-  //existing user
+  //checking existing user
   const existingUser = await User.findOne({ $or: [{ email }] });
 
   if (existingUser) {
