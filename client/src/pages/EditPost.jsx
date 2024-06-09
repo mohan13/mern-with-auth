@@ -7,17 +7,13 @@ import { EditBlogForm } from "../components/forms/EditPost";
 const EditPost = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { blogDetails } = useSelector((state) => state);
+  const blogDetails = useSelector((state) => state.api.blogDetails);
 
   useEffect(() => {
     dispatch(viewDetails(id));
   }, [dispatch]);
 
-  return (
-    <>
-      <EditBlogForm blogsData={[blogDetails]} />{" "}
-    </>
-  );
+  return <EditBlogForm blogsData={blogDetails} />;
 };
 
 export default EditPost;

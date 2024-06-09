@@ -6,8 +6,9 @@ import Input from "../../ui/input";
 import { useDispatch, useSelector } from "react-redux";
 import { writeBlog } from "../../redux/apiAction";
 import { toast } from "react-toastify";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import Textarea from "../../ui/description";
 // export const convertToBase64 = (file) => {
 //   return new Promise((resolve, reject) => {
 //     const fileReader = new FileReader();
@@ -76,10 +77,7 @@ export const AddPostForm = () => {
                 name="images"
                 onChange={(e) => setFieldValue("images", e.target.files[0])}
               />
-              {/* <ReactQuill
-                
-                onChange={(e) => setFieldValue("description", e.target.values)}
-              /> */}
+              {/* 
               <ReactQuill
                 theme="snow"
                 placeholder="Write something"
@@ -87,8 +85,8 @@ export const AddPostForm = () => {
                 required
                 name="description"
                 onChange={(value) => setFieldValue("description", value)}
-              />
-              {/* <Textarea name="description" label="Write description here..." /> */}
+              /> */}
+              <Textarea name="description" label="Write description here..." />
 
               <Button type="submit">Submit</Button>
             </Form>

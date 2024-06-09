@@ -13,7 +13,7 @@ const router = require("express").Router();
 router
   .route("/")
   .post(verifyJWT, uploadImage.single("images"), createBlog)
-  .get(verifyJWT, getBlogs);
+  .get(getBlogs);
 
 router
   .route("/:id")

@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import Select from "../../ui/select";
 import { Button } from "../../ui/button";
 import Input from "../../ui/input";
-import Textarea from "../../ui/description";
+import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
 import { updateBlogs } from "../../redux/apiAction";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,7 +17,7 @@ export const EditBlogForm = ({ blogsData }) => {
           Edit your product
         </h2>
         <Formik
-          initialValues={blogsData[0]}
+          initialValues={blogsData}
           enableReinitialize // to refresh initial data
           onSubmit={(values, { resetForm }) => {
             toast.success("Blog updated");
@@ -35,7 +35,7 @@ export const EditBlogForm = ({ blogsData }) => {
             }
           }}
         >
-          {() => (
+          {(setFieldValue) => (
             <Form className="flex flex-col gap-4 mb-4 ">
               <Input name="title" type="text" label="Write blog title" />
               <Select
@@ -43,8 +43,14 @@ export const EditBlogForm = ({ blogsData }) => {
                 name="category"
                 label="Category"
               />
-              <Textarea name="description" label="Write description here..." />
 
+              <ReactQuill
+                theme="snow"
+                placeholder="Write something"
+                className="h-72 mb-12 "
+                name="description"
+                onChange={(value) => setFieldValue("description", value)}
+              />
               <Button type="submit">Submit</Button>
             </Form>
           )}

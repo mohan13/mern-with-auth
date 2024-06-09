@@ -19,13 +19,15 @@ export const fetchBlogs = () => {
 export const deleteBlog = (id) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`${BASE_URL}/${BLOGS_ENDPOINT}/${id}`).then(() => {
-        dispatch({
-          type: "SUCCESS_MESSAGE",
+      await axios
+        .delete(`${BASE_URL}/blogs/${id}`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        })
+        .then(() => {
+          location.reload();
         });
-
-        location.reload();
-      });
     } catch (error) {
       dispatch({ type: "FAILED_MESSAGE", payload: "something wrong here" });
     }
