@@ -1,22 +1,13 @@
 import axios from "axios";
 import { clearToken, saveToken } from "./utils";
-import {
-  BASE_URL,
-  ADDBLOG,
-  LOGIN,
-  LOGOUT,
-  VIEW_ALL_BLOGS,
-  DELETE_BLOG,
-  VIEW_DETAILS_BLOGS,
-  SIGN_UP,
-} from "../config";
+import { BASE_URL, LOGIN, LOGOUT, SIGN_UP, BLOGS_ENDPOINT } from "../config";
 import { toast } from "react-toastify";
 
 export const fetchBlogs = () => {
   return async (dispatch) => {
     dispatch({ type: "FETCH_REQUEST" });
     try {
-      await axios.get(`${BASE_URL}/${VIEW_ALL_BLOGS}`).then((res) => {
+      await axios.get(`${BASE_URL}/${BLOGS_ENDPOINT}`).then((res) => {
         dispatch({ type: "FETCH_SUCCESS", payload: res.data.data });
       });
     } catch (error) {
@@ -28,7 +19,7 @@ export const fetchBlogs = () => {
 export const deleteBlog = (id) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`${BASE_URL}/${DELETE_BLOG}/${id}`).then(() => {
+      await axios.delete(`${BASE_URL}/${BLOGS_ENDPOINT}/${id}`).then(() => {
         dispatch({
           type: "SUCCESS_MESSAGE",
         });
@@ -45,7 +36,7 @@ export const viewDetails = (id) => {
   return async (dispatch) => {
     dispatch({ type: "FETCH_REQUEST" });
     try {
-      await axios.get(`${BASE_URL}/${VIEW_DETAILS_BLOGS}/${id}`).then((res) => {
+      await axios.get(`${BASE_URL}/${BLOGS_ENDPOINT}/${id}`).then((res) => {
         dispatch({
           type: "BLOG_DETAILS",
           payload: res.data.details,
@@ -65,7 +56,7 @@ export const updateBlogs = (id, formData) => {
   return async (dispatch) => {
     try {
       await axios
-        .patch(`${BASE_URL}/${VIEW_DETAILS_BLOGS}/${id}`, formData, {
+        .patch(`${BASE_URL}/${BLOGS_ENDPOINT}/${id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -86,7 +77,7 @@ export const writeBlog = (formData) => {
   return async (dispatch) => {
     try {
       await axios
-        .post(`${BASE_URL}/${ADDBLOG}`, formData, {
+        .post(`${BASE_URL}/${BLOGS_ENDPOINT}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

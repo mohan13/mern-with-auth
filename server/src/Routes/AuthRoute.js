@@ -9,7 +9,7 @@ const router = require("express").Router();
 
 router.post("/signup", Signup);
 router.post("/login", Login);
-router.post("/change-password", changeCurrentPassword);
+router.post("/change-password", verifyJWT, changeCurrentPassword);
 //secured routes
 router.route("/logout").post(verifyJWT, LogOut);
 
