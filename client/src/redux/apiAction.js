@@ -21,13 +21,14 @@ export const getMyBlogs = () => {
     dispatch({ type: "FETCH_REQUEST" });
     try {
       await axios
-        .get(`${BASE_URL}/${BLOGS_ENDPOINT}/get/my-post`, {
+        .get(`${BASE_URL}/blogs/get/my-post`, {
           headers: {
             Authorization: localStorage.getItem("token"),
           },
         })
         .then((res) => {
-          dispatch({ type: "MY_BLOG_FETCH_SUCCESS", payload: res.data.data });
+          console.log("hello", res.data.myPost);
+          dispatch({ type: "MY_BLOG_SUCCESS", payload: res.data.myPost });
         });
     } catch (error) {
       dispatch({ type: "FAILED_MESSAGE", payload: error.response.data.msg });
@@ -62,7 +63,6 @@ export const viewDetails = (id) => {
           type: "BLOG_DETAILS",
           payload: res.data.details,
         });
-        // dispatch({ type: "FETCH_SUCCESS", payload: res.data.details });
       });
     } catch (error) {
       dispatch({
@@ -101,6 +101,7 @@ export const writeBlog = (formData) => {
         .post(`${BASE_URL}/${BLOGS_ENDPOINT}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: localStorage.getItem("token"),
           },
         })
         .then((res) => {
@@ -157,10 +158,9 @@ export const login = (formData) => {
 };
 
 export const logout = () => {
-  return async (dispatch, getState) => {
-    console.log(getState().token);
+  return async (dispatch) => {
     try {
-      axios
+      await axios
         .post(`${BASE_URL}/${LOGOUT}`, {
           headers: {
             "Content-Type": "application/json; charset=utf-8",

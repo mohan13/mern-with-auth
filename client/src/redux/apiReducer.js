@@ -20,7 +20,7 @@ const apiReducer = (state = initialState, action) => {
     case "FETCH_SUCCESS":
       return { ...state, blogs: action.payload, isLoading: false };
 
-    case "MY_BLOG_FETCH_SUCCESS":
+    case "MY_BLOG_SUCCESS":
       return { ...state, myBlogs: action.payload, isLoading: false };
 
     case "USER_INFO":

@@ -24,5 +24,4 @@ router
   .get(blogDetails)
   .patch(verifyJWT, updateBlog);
 
-// router.post("/blogposts", BlogsController.PostBlogs);
 module.exports = router;

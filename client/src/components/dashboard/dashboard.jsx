@@ -34,13 +34,12 @@ export const Dashboard = () => {
 
   const FilteredBlogs = searchOnTitle(myBlogs);
 
-  console.log(myBlogs);
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-4">
       <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
         <div className="w-full md:w-1/2">
           <div className="flex items-center">
-            <label className="sr-only">Search</label>
+            <div className="sr-only">Search</div>
             <div className="relative w-full">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg
@@ -193,22 +192,20 @@ export const Dashboard = () => {
                               >
                                 Delete
                               </button>
-                              <div
-                                className="cursor-pointer"
+                              <button
                                 onClick={() =>
                                   navigate(`/details/${String(item._id)}`)
                                 }
                               >
                                 View
-                              </div>
-                              <div
-                                className="cursor-pointer"
+                              </button>
+                              <button
                                 onClick={() =>
                                   navigate(`/editpost/${String(item._id)}`)
                                 }
                               >
                                 Edit
-                              </div>
+                              </button>
                             </div>
                           </td>
                         </tr>
