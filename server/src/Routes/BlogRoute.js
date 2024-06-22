@@ -4,6 +4,7 @@ const {
   blogDetails,
   updateBlog,
   createBlog,
+  postedByMe,
 } = require("../Controller/BlogController");
 const verifyJWT = require("../Middlewares/auth.middleware");
 
@@ -14,6 +15,8 @@ router
   .route("/")
   .post(verifyJWT, uploadImage.single("images"), createBlog)
   .get(getBlogs);
+
+router.route("/get/my-post").get(verifyJWT, postedByMe);
 
 router
   .route("/:id")

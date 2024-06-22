@@ -16,6 +16,25 @@ export const fetchBlogs = () => {
   };
 };
 
+export const getMyBlogs = () => {
+  return async (dispatch) => {
+    dispatch({ type: "FETCH_REQUEST" });
+    try {
+      await axios
+        .get(`${BASE_URL}/${BLOGS_ENDPOINT}/get/my-post`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        })
+        .then((res) => {
+          dispatch({ type: "MY_BLOG_FETCH_SUCCESS", payload: res.data.data });
+        });
+    } catch (error) {
+      dispatch({ type: "FAILED_MESSAGE", payload: error.response.data.msg });
+    }
+  };
+};
+
 export const deleteBlog = (id) => {
   return async (dispatch) => {
     try {

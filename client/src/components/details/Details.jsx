@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 
 export const Details = ({ post }) => {
+  console.log("posts", post);
   return (
     <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
       <Link to="/">back</Link>

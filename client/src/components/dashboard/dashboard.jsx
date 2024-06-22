@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteBlog, fetchBlogs } from "../../redux/apiAction";
+import { deleteBlog, getMyBlogs } from "../../redux/apiAction";
 import { formatDateTime } from "../../utils/getTimeDate";
 import { useNavigate } from "react-router-dom";
 import { Modal, ModalContent, useDisclosure } from "@nextui-org/modal";
@@ -12,13 +12,13 @@ export const Dashboard = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const blogs = useSelector((state) => state.api.blogs);
+  const myBlogs = useSelector((state) => state.api.myBlogs);
   const loading = useSelector((state) => state.api.isLoading);
   const token = useSelector((state) => state.api.token);
 
   useEffect(() => {
     if (token) {
-      dispatch(fetchBlogs());
+      dispatch(getMyBlogs());
     }
   }, [dispatch, token]);
 
@@ -27,13 +27,14 @@ export const Dashboard = () => {
   };
 
   const searchOnTitle = (array) => {
-    return Object.values(array)?.filter((item) =>
+    return array?.filter((item) =>
       item.title.toLowerCase().includes(blogTitle.toLocaleLowerCase()),
     );
   };
 
-  const FilteredBlogs = searchOnTitle(blogs);
+  const FilteredBlogs = searchOnTitle(myBlogs);
 
+  console.log(myBlogs);
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-4">
       <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">

@@ -1,5 +1,6 @@
 const initialState = {
   blogs: [],
+  myBlogs: [],
   blogDetails: {},
   isLoading: false,
   error: null,
@@ -18,6 +19,9 @@ const apiReducer = (state = initialState, action) => {
 
     case "FETCH_SUCCESS":
       return { ...state, blogs: action.payload, isLoading: false };
+
+    case "MY_BLOG_FETCH_SUCCESS":
+      return { ...state, myBlogs: action.payload, isLoading: false };
 
     case "USER_INFO":
       if (action.payload === null) {
