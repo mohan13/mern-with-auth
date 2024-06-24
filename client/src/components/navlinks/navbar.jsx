@@ -32,7 +32,6 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const { userInfo, token } = useSelector((state) => state);
   const userInfo = useSelector((state) => state.api.userInfo);
   const token = useSelector((state) => state.api.token);
 
