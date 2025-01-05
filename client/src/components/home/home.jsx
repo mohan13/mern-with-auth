@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchBlogs } from "../../redux/apiAction";
+import { format } from "date-fns";
 
 export const HomeComp = () => {
   const blogs = useSelector((state) => state.api.blogs);
@@ -44,9 +45,11 @@ export const HomeComp = () => {
                     {post.title}
                   </p>
                   <span className="italic text-sm">{post.category}</span>
-                  <span className="italic text-sm">
+                  <span className="text-sm">
                     posted by {post.user_details?.map((item) => item.username)}
-                    at {post.createdAt}
+                  </span>
+                  <span className="italic text-sm">
+                    at {format(post.createdAt, "d MMM yyyy")}
                   </span>
 
                   <Link

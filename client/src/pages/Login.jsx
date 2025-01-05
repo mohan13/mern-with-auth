@@ -17,7 +17,7 @@ const Login = () => {
     if (token) {
       return navigate("/dashboard");
     }
-  }, [token]);
+  }, [token, dispatch, navigate]);
   if (error) {
     toast.error(error);
   }
