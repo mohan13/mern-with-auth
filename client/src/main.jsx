@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { Provider } from "react-redux";
@@ -17,7 +17,8 @@ import BlogDetails from "./pages/BlogDetails.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import SignupPage from "./pages/Signup.jsx";
-import Homepage from "./pages/Home.jsx";
+
+export const HomePage = lazy(() => import("./pages/Home.jsx"));
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Homepage />,
+        element: <HomePage />,
       },
       {
         path: "/login",

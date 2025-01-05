@@ -4,19 +4,13 @@ import { Link } from "react-router-dom";
 import { fetchBlogs } from "../../redux/apiAction";
 
 export const HomeComp = () => {
-  // const navigate = useNavigate();
   const blogs = useSelector((state) => state.api.blogs);
-  const token = useSelector((state) => state.api.token);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (token) {
-      dispatch(fetchBlogs());
-    }
-  }, [dispatch, token]);
-
-  console.log(blogs);
+    dispatch(fetchBlogs());
+  }, [dispatch]);
 
   return (
     <div>

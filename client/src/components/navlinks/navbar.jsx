@@ -22,6 +22,7 @@ const menuItems = [
     name: "Add Post",
     href: "/addpost",
   },
+
   // {
   //   name: "Edit Post",
   //   href: "/editpost",
@@ -52,7 +53,7 @@ export const Navbar = () => {
           </span>
         </div>
         {token && (
-          <div className="hidden  justify-center grow items-start lg:flex">
+          <div className="hidden justify-center grow items-start lg:flex">
             <ul className="ml-12 inline-flex space-x-8">
               {menuItems.map((item) => (
                 <li key={item.name}>

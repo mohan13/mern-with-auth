@@ -8,7 +8,8 @@ import { writeBlog } from "../../redux/apiAction";
 import { toast } from "react-toastify";
 // import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import Textarea from "../../ui/description";
+import ReactQuill from "react-quill";
+import { useNavigate } from "react-router-dom";
 // export const convertToBase64 = (file) => {
 //   return new Promise((resolve, reject) => {
 //     const fileReader = new FileReader();
@@ -23,8 +24,10 @@ import Textarea from "../../ui/description";
 // };
 
 export const AddPostForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const error = useSelector((state) => state.api.error);
+
   if (error) {
     toast.error(error);
   }
@@ -51,6 +54,7 @@ export const AddPostForm = () => {
               formData.append("category", values.category);
               formData.append("images", values.images);
               dispatch(writeBlog(formData));
+              navigate("/dashboard");
               resetForm({
                 values: {
                   title: "",
@@ -77,7 +81,7 @@ export const AddPostForm = () => {
                 name="images"
                 onChange={(e) => setFieldValue("images", e.target.files[0])}
               />
-              {/* 
+
               <ReactQuill
                 theme="snow"
                 placeholder="Write something"
@@ -85,8 +89,8 @@ export const AddPostForm = () => {
                 required
                 name="description"
                 onChange={(value) => setFieldValue("description", value)}
-              /> */}
-              <Textarea name="description" label="Write description here..." />
+              />
+              {/* <Textarea name="description" label="Write description here..." /> */}
 
               <Button type="submit">Submit</Button>
             </Form>

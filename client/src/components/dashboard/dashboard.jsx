@@ -145,7 +145,7 @@ export const Dashboard = () => {
                     </th>
                   </tr>
                 </thead>
-                {loading ? (
+                {loading && !myBlogs ? (
                   <tbody className="divide-y divide-gray-200 bg-white">
                     <tr>Loading....</tr>{" "}
                   </tbody>

@@ -7,8 +7,13 @@ import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
 import { updateBlogs } from "../../redux/apiAction";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 export const EditBlogForm = ({ blogsData }) => {
+  const [editpost, setEditpost] = useState(blogsData.description);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  console.log("navigate", blogsData);
 
   return (
     <div className="bg-white dark:bg-gray-900">
@@ -24,9 +29,14 @@ export const EditBlogForm = ({ blogsData }) => {
             try {
               let formData = new FormData();
               formData.append("title", values.title);
-              formData.append("description", values.description);
+              formData.append("description", editpost);
+              formData.append("images", values.images);
+
               formData.append("category", values.category);
               dispatch(updateBlogs(values._id, formData));
+
+              navigate("/dashboard");
+
               resetForm({
                 values: { title: "", category: "", description: "" },
               });
@@ -43,13 +53,19 @@ export const EditBlogForm = ({ blogsData }) => {
                 name="category"
                 label="Category"
               />
+              <input
+                type="file"
+                name="images"
+                onChange={(e) => setFieldValue("images", e.target.files[0])}
+              />
 
               <ReactQuill
                 theme="snow"
                 placeholder="Write something"
                 className="h-72 mb-12 "
                 name="description"
-                onChange={(value) => setFieldValue("description", value)}
+                value={editpost}
+                onChange={(value) => setEditpost(value)}
               />
               <Button type="submit">Submit</Button>
             </Form>

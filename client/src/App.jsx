@@ -2,19 +2,18 @@ import { Navbar } from "./components/navlinks/navbar";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Suspense } from "react";
 
 function App() {
   return (
-    <div>
+    <Suspense fallback={<>Loading....</>}>
       <div className="mx-10 my-5">
         <Navbar />
-
-        {/* {token ? <Outlet /> : <Login />} */}
 
         <Outlet />
       </div>
       <ToastContainer />
-    </div>
+    </Suspense>
   );
 }
 

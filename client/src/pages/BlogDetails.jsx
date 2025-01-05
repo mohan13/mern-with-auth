@@ -7,28 +7,27 @@ import { viewDetails } from "../redux/apiAction";
 import { useEffect } from "react";
 const BlogDetails = () => {
   const dispatch = useDispatch();
-
   const { id } = useParams();
-  const error = useSelector((state) => state.api.error);
   const blogDetails = useSelector((state) => state.api.blogDetails);
   const isLoading = useSelector((state) => state.api.isLoading);
 
   useEffect(() => {
-    dispatch(viewDetails(id));
-  }, [dispatch]);
+    if (id) {
+      dispatch(viewDetails(id));
+    }
+  }, [dispatch, id]);
 
+  console.log(blogDetails);
   return (
     <div>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <>
-          {error ? (
-            <div className="px-4 py-8">{error}</div>
-          ) : (
-            <Details post={blogDetails} />
-          )}
-        </>
+        <Details
+          title={blogDetails[0].title}
+          images={blogDetails[0].images}
+          description={blogDetails[0].description}
+        />
       )}
     </div>
   );

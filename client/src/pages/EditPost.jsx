@@ -10,10 +10,12 @@ const EditPost = () => {
   const blogDetails = useSelector((state) => state.api.blogDetails);
 
   useEffect(() => {
-    dispatch(viewDetails(id));
-  }, [dispatch]);
+    if (id) {
+      dispatch(viewDetails(id));
+    }
+  }, [dispatch, id]);
 
-  return <EditBlogForm blogsData={blogDetails} />;
+  return <EditBlogForm blogsData={blogDetails[0]} />;
 };
 
 export default EditPost;

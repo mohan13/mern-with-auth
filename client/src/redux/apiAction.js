@@ -7,9 +7,10 @@ export const fetchBlogs = () => {
   return async (dispatch) => {
     dispatch({ type: "FETCH_REQUEST" });
     try {
-      await axios.get(`${BASE_URL}/${BLOGS_ENDPOINT}`).then((res) => {
+      const res = await axios.get(`${BASE_URL}/${BLOGS_ENDPOINT}`);
+      if (res.status === 200) {
         dispatch({ type: "FETCH_SUCCESS", payload: res.data.data });
-      });
+      }
     } catch (error) {
       dispatch({ type: "FAILED_MESSAGE", payload: error.response.data.msg });
     }
@@ -46,6 +47,7 @@ export const deleteBlog = (id) => {
           },
         })
         .then(() => {
+          toast.success("Post deleted successfully!");
           location.reload();
         });
     } catch (error) {
@@ -58,12 +60,14 @@ export const viewDetails = (id) => {
   return async (dispatch) => {
     dispatch({ type: "FETCH_REQUEST" });
     try {
-      await axios.get(`${BASE_URL}/${BLOGS_ENDPOINT}/${id}`).then((res) => {
+      const res = await axios.get(`${BASE_URL}/${BLOGS_ENDPOINT}/${id}`);
+      console.log("res details", res.data.details);
+      if (res.status === 200) {
         dispatch({
           type: "BLOG_DETAILS",
           payload: res.data.details,
         });
-      });
+      }
     } catch (error) {
       dispatch({
         type: "FAILED_MESSAGE",
@@ -80,10 +84,12 @@ export const updateBlogs = (id, formData) => {
         .patch(`${BASE_URL}/${BLOGS_ENDPOINT}/${id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: localStorage.getItem("token"),
           },
         })
         .then(() => {
           dispatch({ type: "SUCCESS_MESSAGE" });
+          toast.success("Post updated successfully!");
         });
     } catch (error) {
       dispatch({
