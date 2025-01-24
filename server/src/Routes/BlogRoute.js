@@ -22,6 +22,6 @@ router
   .route("/:id")
   .delete(verifyJWT, deleteBlog)
   .get(blogDetails)
-  .patch(verifyJWT, updateBlog);
+  .patch(verifyJWT, uploadImage.single("images"), updateBlog);
 
 module.exports = router;

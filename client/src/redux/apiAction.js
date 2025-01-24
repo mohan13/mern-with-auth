@@ -80,17 +80,24 @@ export const viewDetails = (id) => {
 export const updateBlogs = (id, formData) => {
   return async (dispatch) => {
     try {
-      await axios
-        .patch(`${BASE_URL}/${BLOGS_ENDPOINT}/${id}`, formData, {
+      const res = await axios.patch(
+        `${BASE_URL}/${BLOGS_ENDPOINT}/${id}`,
+        formData,
+        {
           headers: {
+            // "Content-Type": "application/json",
             "Content-Type": "multipart/form-data",
+
             Authorization: localStorage.getItem("token"),
           },
-        })
-        .then(() => {
-          dispatch({ type: "SUCCESS_MESSAGE" });
-          toast.success("Post updated successfully!");
-        });
+        },
+      );
+      if (res.status === 200 && res.data) {
+        console.log("edit post", formData);
+        dispatch({ type: "SUCCESS_MESSAGE" });
+        toast.success("Post updated successfully!");
+        return res.data;
+      }
     } catch (error) {
       dispatch({
         type: "FAILED_MESSAGE",

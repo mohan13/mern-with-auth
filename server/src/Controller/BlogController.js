@@ -76,19 +76,51 @@ const postedByMe = asyncHandler(async (req, res) => {
 });
 
 const updateBlog = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+
   const { title, description, category } = req.body;
 
-  const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, {
-    title,
-    description,
-    category,
-  });
+  const imageLocalPath = req.file?.path;
 
-  await updatedBlog.save();
+  console.log("file", req.file?.path);
+  if (!imageLocalPath) {
+    return res.status(400).json({ msg: "No file uploaded", imageLocalPath });
+  }
+
+  //   if(req.file){
+  //     imageName= "https://mern3-node.onrender.com/" + req.file.filename
+  //     const blog = await Blog.findById(id)
+  //     const oldImageName = blog.image
+
+  //     fs.unlink(`storage/${oldImageName}`,(err)=>{
+  //         if(err){
+  //             console.log(err)
+  //         }else{
+  //             console.log("File deleted successfully")
+  //         }
+  //     })
+  // }
+
+  const blogImage = await uploadOnCloudinary(imageLocalPath);
+
+  if (!blogImage.url) {
+    return res.status(400).json({ msg: "Error while uploading on avatar" });
+  }
+
+  const updateBlog = await Blog.findByIdAndUpdate(
+    id,
+    {
+      title: title,
+      description: description,
+      category: category,
+      images: blogImage.url,
+    },
+    { new: true },
+  );
 
   return res
     .status(200)
-    .json({ msg: "blog updated successfully ", updatedBlog });
+    .json({ msg: "blog updated successfully ", updateBlog });
 });
 
 const createBlog = asyncHandler(async (req, res) => {
