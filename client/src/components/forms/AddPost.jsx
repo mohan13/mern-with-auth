@@ -9,8 +9,7 @@ import { toast } from "react-toastify";
 // import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { UploadSingleImage } from "../ui/upload-single-image";
 // export const convertToBase64 = (file) => {
 //   return new Promise((resolve, reject) => {
 //     const fileReader = new FileReader();
@@ -25,16 +24,12 @@ import { useState } from "react";
 // };
 
 export const AddPostForm = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [imagePreviews, setImagePreviews] = useState(null);
   const error = useSelector((state) => state.api.error);
 
   if (error) {
     toast.error(error);
   }
-
-  console.log("image urls", imagePreviews);
 
   return (
     <div className="bg-white dark:bg-gray-900">
@@ -58,7 +53,6 @@ export const AddPostForm = () => {
               formData.append("category", values.category);
               formData.append("images", values.images);
               dispatch(writeBlog(formData));
-              navigate("/dashboard");
               resetForm({
                 values: {
                   title: "",
@@ -72,7 +66,7 @@ export const AddPostForm = () => {
             }
           }}
         >
-          {({ setFieldValue }) => (
+          {({ values, handleChange, setFieldValue, isSubmitting }) => (
             <Form className="flex flex-col gap-4 mb-4 ">
               <Input name="title" type="text" label="Write blog title" />
               <Select
@@ -80,25 +74,12 @@ export const AddPostForm = () => {
                 name="category"
                 label="Category"
               />
-              <input
-                type="file"
-                name="images"
-                onChange={(e) => {
-                  setImagePreviews(URL.createObjectURL(e.target.files[0]));
-                  setFieldValue("images", e.target.files[0]);
-                }}
+              <UploadSingleImage
+                fieldId="images"
+                handleChange={handleChange}
+                setFieldValue={setFieldValue}
+                values={values}
               />
-              <div
-                style={{ display: "flex", flexWrap: "wrap", marginTop: "10px" }}
-              >
-                <div style={{ marginRight: "10px", position: "relative" }}>
-                  <img
-                    src={imagePreviews && imagePreviews}
-                    alt=""
-                    style={{ width: "100px", height: "100px" }}
-                  />
-                </div>
-              </div>
 
               <ReactQuill
                 theme="snow"
@@ -110,7 +91,9 @@ export const AddPostForm = () => {
               />
               {/* <Textarea name="description" label="Write description here..." /> */}
 
-              <Button type="submit">Submit</Button>
+              <Button type="submit" disable={isSubmitting}>
+                Submit
+              </Button>
             </Form>
           )}
         </Formik>

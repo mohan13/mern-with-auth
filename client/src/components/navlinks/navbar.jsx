@@ -14,14 +14,6 @@ const menuItems = [
     name: "Home",
     href: "/",
   },
-  {
-    name: "Dashboard",
-    href: "/dashboard",
-  },
-  {
-    name: "Add Post",
-    href: "/addpost",
-  },
 
   // {
   //   name: "Edit Post",
@@ -49,7 +41,7 @@ export const Navbar = () => {
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
           <Link
-            to="#"
+            to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
@@ -64,8 +56,13 @@ export const Navbar = () => {
                     <div>{userInfo}</div>
                   </DropdownTrigger>
                   <DropdownMenu>
+                    <DropdownItem>
+                      <Link to="/dashboard">Dashboard</Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link to="/addpost">Add Post</Link>
+                    </DropdownItem>
                     <DropdownItem onClick={userLogout}>Log Out</DropdownItem>
-                    <DropdownItem>Change Password</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               ) : (
@@ -77,12 +74,32 @@ export const Navbar = () => {
                 </button>
               )}
             </div>
+            <div className="lg:hidden">
+              <div onClick={toggleMenu} className="h-6 w-6 cursor-pointer">
+                <svg
+                  className="w-6 h-6 text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    d="M5 7h14M5 12h14M5 17h14"
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </nav>
       <nav className="bg-gray-50 dark:bg-gray-700">
         {token && (
-          <div className="max-w-screen-xl px-4 py-3 mx-auto">
+          <div className="max-w-screen-xl hidden  px-4 py-3 mx-auto">
             <div className="flex items-center justify-center">
               <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
                 {menuItems.map((item) => (
@@ -100,35 +117,12 @@ export const Navbar = () => {
           </div>
         )}
 
-        <div className="lg:hidden">
-          <div onClick={toggleMenu} className="h-6 w-6 cursor-pointer">
-            <svg
-              className="w-6 h-6 text-gray-800 dark:text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeWidth="2"
-                d="M5 7h14M5 12h14M5 17h14"
-              />
-            </svg>
-          </div>
-        </div>
         {isMenuOpen && (
-          <div className="absolute inset-x-0 top-0 z-50 origin-top-right transform p-2 transition lg:hidden">
+          <div className="absolute inset-x-0 top-20 z-50 origin-top-right transform p-2 transition lg:hidden">
             <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
               <div className="px-5 pb-6 pt-5">
-                <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center space-x-2">
-                    <span className="font-bold">Mohan&apos;s Blog</span>
-                  </div>
-                  <div className="-mr-2">
+                <div className="flex items-center justify-end">
+                  <div className="-mr">
                     <button
                       type="button"
                       onClick={toggleMenu}
@@ -179,10 +173,15 @@ export const Navbar = () => {
                         <div>{userInfo}</div>
                       </DropdownTrigger>
                       <DropdownMenu>
+                        <DropdownItem>
+                          <Link to="/dashboard">Dashboard</Link>
+                        </DropdownItem>
+                        <DropdownItem>
+                          <Link to="/addpost">Add Post</Link>
+                        </DropdownItem>
                         <DropdownItem onClick={userLogout}>
                           Log Out
                         </DropdownItem>
-                        <DropdownItem>Change Password</DropdownItem>
                       </DropdownMenu>
                     </Dropdown>
                   ) : (
@@ -201,32 +200,5 @@ export const Navbar = () => {
         )}
       </nav>
     </>
-
-    // <div className="relative w-full bg-white">
-    //   <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
-    //     <div className="inline-flex items-center space-x-2">
-    //       <span className="font-bold">
-    //         <Link to="/">Mohan&apos;s Blog</Link>
-    //       </span>
-    //     </div>
-    //     {token && (
-    //       <div className="hidden justify-center grow items-start lg:flex">
-    //         <ul className="ml-12 inline-flex space-x-8">
-    //           {menuItems.map((item) => (
-    //             <li key={item.name}>
-    //               <Link
-    //                 to={item.href}
-    //                 className="inline-flex items-center text-sm font-semibold text-gray-800 hover:text-gray-900"
-    //               >
-    //                 {item.name}
-    //               </Link>
-    //             </li>
-    //           ))}
-    //         </ul>
-    //       </div>
-    //     )}
-
-    //   </div>
-    // </div>
   );
 };

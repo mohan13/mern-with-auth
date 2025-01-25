@@ -110,16 +110,16 @@ export const updateBlogs = (id, formData) => {
 export const writeBlog = (formData) => {
   return async (dispatch) => {
     try {
-      await axios
-        .post(`${BASE_URL}/${BLOGS_ENDPOINT}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: localStorage.getItem("token"),
-          },
-        })
-        .then((res) => {
-          toast.success(res.data.msg);
-        });
+      const res = await axios.post(`${BASE_URL}/${BLOGS_ENDPOINT}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+
+      if (res.status === 200 && res.data) {
+        toast.success("Post uploaded successfully!");
+      }
     } catch (error) {
       dispatch({ type: "FAILED_MESSAGE", payload: "Blog post failed !" });
     }

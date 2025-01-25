@@ -7,12 +7,12 @@ import ReactQuill from "react-quill";
 import { useDispatch } from "react-redux";
 import { updateBlogs } from "../../redux/apiAction";
 import { ToastContainer } from "react-toastify";
-import { useState } from "react";
-export const EditBlogForm = ({ blogsData }) => {
-  const [editpost, setEditpost] = useState("");
-  const [imagePreviews, setImagePreviews] = useState(null);
+import { UploadSingleImage } from "../ui/upload-single-image";
+import { useNavigate } from "react-router-dom";
 
+export const EditBlogForm = ({ blogsData }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <div className="bg-white dark:bg-gray-900">
       <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
@@ -22,26 +22,27 @@ export const EditBlogForm = ({ blogsData }) => {
         <Formik
           initialValues={blogsData}
           enableReinitialize // to refresh initial data
-          onSubmit={(values, { resetForm }) => {
+          onSubmit={async (values, { resetForm }) => {
             try {
-              let formData = new FormData();
-              formData.append("title", values.title);
-              formData.append("description", editpost);
-              formData.append("images", values.images);
-              formData.append("category", values.category);
+              const formData = new FormData();
+              Object.keys(values).forEach((value) => {
+                return formData.append(value, values[value]);
+              });
+              // formData.append("title", values.title);
+              // formData.append("images", values.images);
+              // formData.append("category", values.category);
+
               dispatch(updateBlogs(values._id, formData));
 
-              // navigate("/dashboard");
+              navigate("/dashboard");
 
-              resetForm({
-                values: { title: "", category: "", description: "" },
-              });
+              resetForm();
             } catch (error) {
               console.log(error.message);
             }
           }}
         >
-          {(setFieldValue) => (
+          {({ values, setFieldValue, handleChange }) => (
             <Form className="flex flex-col gap-4 mb-4 ">
               <Input name="title" type="text" label="Write blog title" />
               <Select
@@ -49,7 +50,15 @@ export const EditBlogForm = ({ blogsData }) => {
                 name="category"
                 label="Category"
               />
-              <input
+
+              <UploadSingleImage
+                setFieldValue={setFieldValue}
+                values={values}
+                fieldId="images"
+                handleChange={handleChange}
+              />
+
+              {/* <input
                 type="file"
                 name="images"
                 onChange={(e) => {
@@ -67,14 +76,15 @@ export const EditBlogForm = ({ blogsData }) => {
                     style={{ width: "100px", height: "100px" }}
                   />
                 </div>
-              </div>
+              </div> */}
 
               <ReactQuill
                 theme="snow"
                 placeholder="Write something ..."
                 className="h-72 mb-12 "
                 name="description"
-                onChange={(value) => setEditpost(value)}
+                defaultValue={blogsData.description}
+                onChange={(value) => setFieldValue("description", value)}
               />
               <Button type="submit">Submit</Button>
             </Form>

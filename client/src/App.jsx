@@ -7,7 +7,7 @@ import { Suspense } from "react";
 function App() {
   return (
     <Suspense fallback={<>Loading....</>}>
-      <div className="mx-10 my-5">
+      <div>
         <Navbar />
 
         <Outlet />
