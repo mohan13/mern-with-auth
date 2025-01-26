@@ -77,104 +77,104 @@ const postedByMe = asyncHandler(async (req, res) => {
   return res.json({ msg: "All details here", myPost });
 });
 
-const updateBlog = asyncHandler(async (req, res) => {
-  const id = req.params.id;
-  const { title, description, category } = req.body;
-
-  let imageName;
-  if (req.file) {
-    imageName = "https://mern-backend-p9kr.onrender.com" + req.file.filename;
-    const blog = await Blog.findById(id);
-    const oldImageName = blog.images;
-
-    fs.unlink(`storage/${oldImageName}`, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("File deleted successfully");
-      }
-    });
-  }
-
-  await Blog.findByIdAndUpdate(id, {
-    title,
-    description,
-    category,
-    images: imageName,
-  });
-  res.status(200).json({
-    message: "Blog updated successfully",
-  });
-});
-
 // const updateBlog = asyncHandler(async (req, res) => {
 //   const id = req.params.id;
+//   const { title, description, category } = req.body;
 
-//   const { title, description, category, images } = req.body;
-//   const imageLocalPath = req.file?.path;
+//   let imageName;
+//   if (req.file) {
+//     imageName = "https://mern-backend-p9kr.onrender.com" + req.file.filename;
+//     const blog = await Blog.findById(id);
+//     const oldImageName = blog.images;
 
-//   console.log("file", req.file, images, req.body);
-
-//   if (!imageLocalPath && !images) {
-//     return res
-//       .status(400)
-//       .json({ msg: "No image uploaded and no image URL provided" });
-//   }
-
-//   let blogImageUrl = images; // Use the existing image URL if no new image is uploaded
-
-//   if (imageLocalPath) {
-//     // If a new image is uploaded, handle the deletion of the old image
-//     if (images) {
-//       const publicId = images.split("/").pop().split(".")[0];
-//       console.log("publicId", publicId);
-//       await cloudinary.uploader.destroy(publicId);
-//     }
-
-//     try {
-//       // Upload the new image to Cloudinary
-//       const blogImage = await uploadOnCloudinary(imageLocalPath);
-
-//       // Check if the upload was successful and returned a valid object
-//       if (!blogImage || !blogImage.url) {
-//         return res
-//           .status(400)
-//           .json({ msg: "Error while uploading image to Cloudinary" });
+//     fs.unlink(`storage/${oldImageName}`, (err) => {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         console.log("File deleted successfully");
 //       }
-
-//       // Use the new image URL
-//       blogImageUrl = blogImage.url;
-//     } catch (error) {
-//       console.error(error);
-//       return res
-//         .status(500)
-//         .json({ msg: "Error uploading the new image", error });
-//     }
+//     });
 //   }
 
-//   try {
-//     // Update the blog with the new or existing image
-//     const updatedBlog = await Blog.findByIdAndUpdate(
-//       id,
-//       {
-//         $set: {
-//           title,
-//           description,
-//           category,
-//           images: blogImageUrl,
-//         },
-//       },
-//       { new: true },
-//     );
-
-//     return res
-//       .status(200)
-//       .json({ msg: "Blog updated successfully", updatedBlog });
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({ msg: "Error updating the blog", error });
-//   }
+//   await Blog.findByIdAndUpdate(id, {
+//     title,
+//     description,
+//     category,
+//     images: imageName,
+//   });
+//   res.status(200).json({
+//     message: "Blog updated successfully",
+//   });
 // });
+
+const updateBlog = asyncHandler(async (req, res) => {
+   const id = req.params.id;
+
+   const { title, description, category, images } = req.body;
+   const imageLocalPath = req.file?.path;
+
+   console.log("file", req.file, images, req.body);
+
+   if (!imageLocalPath && !images) {
+     return res
+       .status(400)
+       .json({ msg: "No image uploaded and no image URL provided" });
+   }
+
+   let blogImageUrl = images;  Use the existing image URL if no new image is uploaded
+
+   if (imageLocalPath) {
+      If a new image is uploaded, handle the deletion of the old image
+     if (images) {
+       const publicId = images.split("/").pop().split(".")[0];
+       console.log("publicId", publicId);
+       await cloudinary.uploader.destroy(publicId);
+     }
+
+     try {
+        Upload the new image to Cloudinary
+       const blogImage = await uploadOnCloudinary(imageLocalPath);
+
+        Check if the upload was successful and returned a valid object
+       if (!blogImage || !blogImage.url) {
+         return res
+           .status(400)
+           .json({ msg: "Error while uploading image to Cloudinary" });
+       }
+
+        Use the new image URL
+       blogImageUrl = blogImage.url;
+     } catch (error) {
+       console.error(error);
+       return res
+         .status(500)
+         .json({ msg: "Error uploading the new image", error });
+     }
+   }
+
+   try {
+      Update the blog with the new or existing image
+     const updatedBlog = await Blog.findByIdAndUpdate(
+       id,
+       {
+         $set: {
+           title,
+           description,
+           category,
+           images: blogImageUrl,
+         },
+       },
+       { new: true },
+     );
+
+     return res
+       .status(200)
+       .json({ msg: "Blog updated successfully", updatedBlog });
+   } catch (error) {
+     console.error(error);
+     return res.status(500).json({ msg: "Error updating the blog", error });
+   }
+ });
 
 const createBlog = asyncHandler(async (req, res) => {
   const { title, description, category } = req.body;
