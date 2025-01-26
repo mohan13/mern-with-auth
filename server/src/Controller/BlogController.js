@@ -83,7 +83,7 @@ const updateBlog = asyncHandler(async (req, res) => {
 
   let imageName;
   if (req.file) {
-    imageName = "https://mern-backend-p9kr.onrender.com" + req.file.filename;
+    imageName = "https://mern-backend-p9kr.onrender.com" + req.file?.filename;
     const blog = await Blog.findById(id);
     const oldImageName = blog.images;
 
@@ -178,16 +178,16 @@ const updateBlog = asyncHandler(async (req, res) => {
 
 const createBlog = asyncHandler(async (req, res) => {
   const { title, description, category } = req.body;
-  const imageLocalPath = req.file?.path;
+  const imageLocalPath = req.file?.filename;
   const owner = req.user._id;
 
-  console.log(req.file?.path);
+  console.log(req.file?.filename);
   let filename;
-  if (imageLocalPath) {
-    filename = "https://mern3-node.onrender.com/" + req.file.path;
+  if (req.file) {
+    filename = imageLocalPath;
   } else {
     filename =
-      "https://cdn.mos.cms.futurecdn.net/i26qpaxZhVC28XRTJWafQS-1200-80.jpeg";
+      "https://i1.wp.com/www.tricialottwilliford.com/wp-content/uploads/2014/03/bigstock-Exclamation-Mark-40472260.jpg?ssl=1";
   }
 
   if (!title || !category || !description) {
