@@ -83,7 +83,7 @@ const updateBlog = asyncHandler(async (req, res) => {
 
   let imageName;
   if (req.file) {
-    imageName = "https://mern-backend-p9kr.onrender.com" + req.file?.filename;
+    imageName = "https://mern-backend-p9kr.onrender.com" + req.file.filename;
     const blog = await Blog.findById(id);
     const oldImageName = blog.images;
 
@@ -178,16 +178,12 @@ const updateBlog = asyncHandler(async (req, res) => {
 
 const createBlog = asyncHandler(async (req, res) => {
   const { title, description, category } = req.body;
-  const imageLocalPath = req.file?.filename;
+  const imageLocalPath = req.file?.path;
   const owner = req.user._id;
+  console.log("file", req.body, req.file);
 
-  console.log(req.file?.filename);
-  let filename;
-  if (req.file) {
-    filename = imageLocalPath;
-  } else {
-    filename =
-      "https://i1.wp.com/www.tricialottwilliford.com/wp-content/uploads/2014/03/bigstock-Exclamation-Mark-40472260.jpg?ssl=1";
+  if (!imageLocalPath) {
+    return res.status(400).json({ msg: "No file uploaded!" });
   }
 
   if (!title || !category || !description) {
@@ -196,13 +192,13 @@ const createBlog = asyncHandler(async (req, res) => {
     });
   }
 
-  // const blogImage = await uploadOnCloudinary(imageLocalPath);
+  const blogImage = await uploadOnCloudinary(imageLocalPath);
 
   const blogs = await Blog.create({
     title,
     description,
     category,
-    images: filename,
+    images: blogImage.url,
     owner,
   });
 
