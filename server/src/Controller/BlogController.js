@@ -178,13 +178,13 @@ const updateBlog = asyncHandler(async (req, res) => {
 
 const createBlog = asyncHandler(async (req, res) => {
   const { title, description, category } = req.body;
-  const imageLocalPath = req.file;
+  const imageLocalPath = req.file?.path;
   const owner = req.user._id;
 
-  console.log(req.file.path);
+  console.log(req.file?.path);
   let filename;
   if (imageLocalPath) {
-    filename = "https://mern3-node.onrender.com/" + req.file.filename;
+    filename = "https://mern3-node.onrender.com/" + req.file.path;
   } else {
     filename =
       "https://cdn.mos.cms.futurecdn.net/i26qpaxZhVC28XRTJWafQS-1200-80.jpeg";
