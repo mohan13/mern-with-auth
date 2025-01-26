@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
       cb(new Error("This filetype is not accepted"));
       return;
     }
-    cb(null, "./public/temp");
+    cb(null, "./public/images");
   },
 
   filename: function (req, file, cb) {
