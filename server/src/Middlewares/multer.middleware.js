@@ -1,5 +1,5 @@
 const multer = require("multer");
-
+const path = require("path");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const allowedFileTypes = ["images/jpg", "image/png", "image/jpeg"];
@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
       cb(new Error("This filetype is not accepted"));
       return;
     }
-    cb(null, "./server/public/images");
+    cb(null, path.join(__dirname, "./server/public/images"));
   },
 
   filename: function (req, file, cb) {
