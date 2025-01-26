@@ -28,9 +28,6 @@ export const EditBlogForm = ({ blogsData }) => {
               Object.keys(values).forEach((value) => {
                 return formData.append(value, values[value]);
               });
-              // formData.append("title", values.title);
-              // formData.append("images", values.images);
-              // formData.append("category", values.category);
 
               dispatch(updateBlogs(values._id, formData));
 
@@ -53,7 +50,7 @@ export const EditBlogForm = ({ blogsData }) => {
 
               <UploadSingleImage
                 setFieldValue={setFieldValue}
-                values={values}
+                values={values || ""}
                 fieldId="images"
                 handleChange={handleChange}
               />
@@ -82,8 +79,7 @@ export const EditBlogForm = ({ blogsData }) => {
                 theme="snow"
                 placeholder="Write something ..."
                 className="h-72 mb-12 "
-                name="description"
-                defaultValue={blogsData.description}
+                defaultValue={values}
                 onChange={(value) => setFieldValue("description", value)}
               />
               <Button type="submit">Submit</Button>
