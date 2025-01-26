@@ -190,9 +190,9 @@ const createBlog = asyncHandler(async (req, res) => {
       "https://cdn.mos.cms.futurecdn.net/i26qpaxZhVC28XRTJWafQS-1200-80.jpeg";
   }
 
-  if (!title || !subtitle || !description) {
+  if (!title || !category || !description) {
     return res.status(400).json({
-      message: "Please provide title,subtitle,description",
+      message: "Please provide title,category,description",
     });
   }
 
