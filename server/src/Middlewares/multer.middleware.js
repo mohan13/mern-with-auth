@@ -16,5 +16,6 @@ const storage = multer.diskStorage({
   },
 });
 
-const uploadImage = multer({ storage });
+//Instead of saving files to a folder, use memory storage to temporarily store files in memory. This avoids the need for a persistent file system.
+const uploadImage = multer({ storage: multer.memoryStorage() });
 module.exports = uploadImage;
