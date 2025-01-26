@@ -205,7 +205,7 @@ const createBlog = asyncHandler(async (req, res) => {
   const imageLocalPath = req.file.path;
   const owner = req.user._id;
 
-  console.log(req.file, req.body);
+  console.log(req.file.path);
   if (!imageLocalPath) {
     return res.status(400).json({ msg: "No file uploaded", imageLocalPath });
   }
