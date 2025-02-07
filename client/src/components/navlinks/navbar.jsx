@@ -38,7 +38,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-white border-gray-200 dark:bg-gray-900">
+      <nav className="bg-gray-50 border-gray-200 dark:bg-gray-900">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
           <Link
             to="/"
@@ -53,7 +53,9 @@ export const Navbar = () => {
               {userInfo !== null ? (
                 <Dropdown>
                   <DropdownTrigger>
-                    <div>{userInfo}</div>
+                    <div className="text-blue-400 border border-gray-100 px-3 py-1 rounded-md capitalize">
+                      {userInfo}
+                    </div>
                   </DropdownTrigger>
                   <DropdownMenu>
                     <DropdownItem>
