@@ -63,7 +63,7 @@ export const HomeComp = () => {
       <div className="max-w-6xl mx-auto p-3 flex flex-col gap-8 py-7">
         <div className="flex flex-col gap-6">
           <h2 className="text-2xl font-semibold text-center">Recent Posts</h2>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-3 grid-cols-1 gap-4">
             {blogs?.map((post) => (
               <div
                 key={post.title}
